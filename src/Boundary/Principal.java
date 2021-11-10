@@ -30,6 +30,7 @@ public class Principal extends Application{
 		TelaMedico tMedico = new TelaMedico();
 		TelaPaciente tPaciente = new TelaPaciente();
 		TelaConsulta tConsulta = new TelaConsulta();
+		TelaEspecialidade tEspecialidade = new TelaEspecialidade();
 		
 		
 		switch(nome) {
@@ -48,11 +49,12 @@ public class Principal extends Application{
 			stage.setTitle("Clínica Medica: Tela Consulta");
 			stage.setScene(tConsulta.Escolha());
 			break;
-		case "Cadastrar Medico":
-			stage.setScene(tMedico.CadastrarMedico());
-			break;
-		case "Consultar Medico":
-			stage.setScene(tMedico.ConsultarMedico());
-		}
+		case "Registrar Consulta":
+			stage.setTitle("Clínica Médica: Registrar Consulta");
+			stage.setScene(tConsulta.RegistrarConsulta());
+		case "Cadastrar Especialidade":
+			stage.setTitle("Clínica Médica: Cadastrar Especialidade");
+			stage.setScene(tEspecialidade.RegistrarEspecialidade());
+		}	
 	}
 }

@@ -3,7 +3,6 @@ package Entities;
 import java.time.LocalDate;
 
 public class Medico {
-	private long id;
 	private String nome;
 	private Especialidade especialidade;
 	private String telefone;
@@ -11,15 +10,8 @@ public class Medico {
 	private String endereco;
 	private LocalDate nascimento;
 	
-	public Medico(int id, String nome, Especialidade especialidade, String telefone, String crm, String endereco, LocalDate nascimento) {
+	public Medico(String nome, Especialidade especialidade, String telefone, String crm, String endereco, LocalDate nascimento) {
 		super();
-	}
-	
-	public long getId() {
-		return id;
-	}
-	public void setId(long id) {
-		this.id = id;
 	}
 	public String getNome() {
 		return nome;

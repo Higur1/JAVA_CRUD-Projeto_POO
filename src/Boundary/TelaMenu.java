@@ -12,10 +12,13 @@ public class TelaMenu {
 	private TelaMedico tMedico = new TelaMedico();
 	private TelaConsulta tConsulta = new TelaConsulta();
 	private TelaPaciente tPaciente = new TelaPaciente();
+	private TelaEspecialidade tEspecialidade = new TelaEspecialidade();
 	
-	private Button btnTelaMedico = new Button("Cadastrar Médico");
-	private Button btnTelaConsulta = new Button("Registrar Consulta");
-	private Button btnTelaPaciente = new Button("Cadastrar Paciente");
+	private Button btnTelaMedico = new Button("Cadastrar/Consultar Médico");
+	private Button btnTelaPaciente = new Button("Cadastrar/Consultar Paciente");
+	private Button btnTelaConsulta = new Button("Consulta");
+	private Button btnTelEspec = new Button ("Cadastrar Especialidade");
+	
 	
 	public Scene Menu() {
 		btnTelaMedico.setMaxWidth(150);
@@ -24,8 +27,10 @@ public class TelaMenu {
 		btnTelaConsulta.setMinHeight(40);
 		btnTelaPaciente.setMaxWidth(150);
 		btnTelaPaciente.setMinHeight(40);
+		btnTelEspec.setMaxWidth(150);
+		btnTelEspec.setMinHeight(40);
 		
-		VBox painel = new VBox(btnTelaMedico, btnTelaConsulta, btnTelaPaciente);
+		VBox painel = new VBox(btnTelaMedico, btnTelaPaciente, btnTelaConsulta, btnTelEspec);
 		
 		painel.setAlignment(Pos.CENTER);
 		painel.setSpacing(20);
@@ -35,17 +40,18 @@ public class TelaMenu {
 		btnTelaMedico.setOnAction( (e) -> {
 			Principal.changedScreen("Tela Medico");
 		});
+		btnTelaPaciente.setOnAction( (e) -> {
+			Principal.changedScreen("Tela Paciente");
+		});
+		btnTelaConsulta.setOnAction( (e) -> {
+			Principal.changedScreen("Tela Consulta");
+		});
+		btnTelEspec.setOnAction( (e) -> {
+			Principal.changedScreen("Cadastrar Especialidade");
+		});
+	
 		
-		//btnTelaPaciente.setOnAction( (e) -> {
-			//Principal.changedScreen(2);
-		//});
-		
-		//btnTelaConsulta.setOnAction( (e) -> {
-			//Principal.changedScreen(3);
-		//});
-		
-		return scn;
-		
+		return scn;	
 		
 	}
 }
