@@ -28,10 +28,13 @@ public class TelaConsulta {
 		
 		Label lblNomePaciente = new Label("Nome do Paciente: ");
 		Label lblCpf = new Label(" CPF: ");
+		Label lblCrm = new Label(" CRM: ");
 		TextField txtNomePaciente = new TextField("Digite aqui");
 		txtNomePaciente.setStyle("-fx-text-fill: gray; ");
 		TextField txtCpf = new TextField("Digite aqui");
 		txtCpf.setStyle("-fx-text-fill: gray");
+		TextField txtCrm = new TextField("Digite aqui");
+		txtCrm.setStyle("-fx-text-fill: gray");
 		
 		
 		GridPane gp = new GridPane(); //Painel de edição
@@ -40,6 +43,8 @@ public class TelaConsulta {
 		gp.add(txtNomePaciente, 1, 0);
 		gp.add(lblCpf, 3, 0);
 		gp.add(txtCpf, 4, 0);
+		gp.add(lblCrm, 5, 0);
+		gp.add(txtCrm, 6, 0);
 		gp.setPadding(new Insets(10,10,10,10));
 		
 		HBox hb = new HBox(); //Painel dos botões

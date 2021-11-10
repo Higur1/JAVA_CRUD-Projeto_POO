@@ -1,8 +1,15 @@
 package Entities;
 
 public class Especialidade {
+	
 	private String nome;
 	private String cbo;
+	
+	public Especialidade(String nome, String cbo) {
+		this.nome = nome;
+		this.cbo = cbo;
+	}
+	
 	public String getNome() {
 		return nome;
 	}

@@ -7,14 +7,20 @@ public class Consulta {
 	private String descricao;
 	private String cpf;
 	private String crm;
-	private LocalDateTime dataHoraCons;
+	private LocalDateTime dataHoraConsult;
 	
-
+	public Consulta(String descricao, String cpf, String crm, LocalDateTime dataHoraConsult) {
+		this.descricao = descricao;
+		this.cpf = cpf;
+		this.crm = crm;
+		this.dataHoraConsult = dataHoraConsult;
+	}
+	
 	public LocalDateTime getDataHoraCons() {
-		return dataHoraCons;
+		return dataHoraConsult;
 	}
 	public void setDataHoraCons(LocalDateTime dataHoraCons) {
-		this.dataHoraCons = dataHoraCons;
+		this.dataHoraConsult = dataHoraCons;
 	}
 	public String getDescricao() {
 		return descricao;

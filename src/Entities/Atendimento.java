@@ -7,6 +7,13 @@ public class Atendimento {
 	private String cpf;
 	private String codFunc;
 	
+	public Atendimento(String data, String hora, String cpf, String codFunc) {
+		this.data = data;
+		this.hora = hora;
+		this.cpf = cpf;
+		this.codFunc = codFunc;
+	}
+	
 	public String getData() {
 		return data;
 	}
