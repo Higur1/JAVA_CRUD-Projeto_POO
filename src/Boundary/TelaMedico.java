@@ -71,7 +71,7 @@ public class TelaMedico {
 		
 		painel.setPadding(new Insets(10,10,10,10));
 		
-		
+		//FUNÇÕES DO BOTÃO
 		btnSlv.setOnAction( (e) -> {
 			//MedicoControl
 		});
@@ -83,8 +83,6 @@ public class TelaMedico {
 		btnVoltar.setOnAction( (e) -> {
 			Principal.changedScreen("Menu");
 		});
-		
-		List<Medico> lista = new ArrayList(); 
 		
 		TableView <Medico> table = new TableView<>();
 

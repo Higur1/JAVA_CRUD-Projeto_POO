@@ -3,9 +3,7 @@ package Boundary;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.VBox;
-import javafx.stage.Stage;
 
 public class TelaMenu {
 	
@@ -13,15 +11,16 @@ public class TelaMenu {
 	private TelaConsulta tConsulta = new TelaConsulta();
 	private TelaPaciente tPaciente = new TelaPaciente();
 	private TelaEspecialidade tEspecialidade = new TelaEspecialidade();
+	private TelaAtendente tAtendenteConsulta = new TelaAtendente();
 	
-	private Button btnTelaMedico = new Button("Cadastrar/Consultar Médico");
-	private Button btnTelaPaciente = new Button("Cadastrar/Consultar Paciente");
-	private Button btnTelaConsulta = new Button("Consulta");
-	private Button btnTelEspec = new Button ("Cadastrar Especialidade");
-	
+	private Button btnTelaMedico = new Button("Cadastrar/Pesquisar Médico");
+	private Button btnTelaPaciente = new Button("Cadastrar/Pesquisar Paciente");
+	private Button btnTelaConsulta = new Button("Cadastrar/Pesquisar Consulta");
+	private Button btnTelEspec = new Button ("Cadastrar/Pesquisar Especialidade");
+	private Button btnTelaAtendente = new Button("Pesquisar Atendente");
 	
 	public Scene Menu() {
-		btnTelaMedico.setMaxWidth(150);
+		btnTelaMedico.setMaxWidth(300);
 		btnTelaMedico.setMinHeight(40);
 		btnTelaConsulta.setMaxWidth(150);
 		btnTelaConsulta.setMinHeight(40);
@@ -29,8 +28,10 @@ public class TelaMenu {
 		btnTelaPaciente.setMinHeight(40);
 		btnTelEspec.setMaxWidth(150);
 		btnTelEspec.setMinHeight(40);
+		btnTelaAtendente.setMaxWidth(150);
+		btnTelaAtendente.setMinHeight(40);
 		
-		VBox painel = new VBox(btnTelaMedico, btnTelaPaciente, btnTelaConsulta, btnTelEspec);
+		VBox painel = new VBox(btnTelaMedico, btnTelaPaciente, btnTelaConsulta, btnTelEspec, btnTelaAtendente);
 		
 		painel.setAlignment(Pos.CENTER);
 		painel.setSpacing(20);
@@ -49,9 +50,11 @@ public class TelaMenu {
 		btnTelEspec.setOnAction( (e) -> {
 			Principal.changedScreen("Cadastrar Especialidade");
 		});
+		btnTelaAtendente.setOnAction( (e) -> {
+			Principal.changedScreen("Consultar Atendente");
+		});
 	
 		
-		return scn;	
-		
+		return scn;
 	}
 }
