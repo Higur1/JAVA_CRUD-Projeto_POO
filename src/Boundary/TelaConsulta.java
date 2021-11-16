@@ -1,7 +1,6 @@
 package Boundary;
 
 import Entities.Consulta;
-import Entities.Medico;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
@@ -12,13 +11,15 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 
 public class TelaConsulta {
 
-	public Scene Escolha() {
+	public Scene render() {
 		
 		Button btnPesquisar = new Button(" Pesquisar ");
 		Button btnRegistrarConsulta = new Button (" Registrar consulta ");
@@ -54,6 +55,58 @@ public class TelaConsulta {
 		hb.setAlignment(Pos.BASELINE_CENTER);
 		hb.setSpacing(10);
 		
+		//Funções dos botões
+		
+		btnPesquisar.setOnAction( (e) -> {
+			//Consultar.control Pesquisar
+		});
+		
+		btnRegistrarConsulta.setOnAction( (e) -> {
+			//Principal.changedScreen("Salvar Consulta");
+		});
+		
+		btnEditar.setOnAction( (e) -> {
+			//Consulta.control Editar
+		});
+		
+		btnExcluir.setOnAction( (e) -> {
+			//Consulta.control Excluir
+		});
+		
+		
+		btnVoltar.setOnAction( (e) -> {
+			//Principal.changedScreen("Menu");
+		});
+	
+		
+
+		VBox vb = new VBox(gp, hb); //Painel principal
+		vb.setPadding(new Insets(10,10,10,10));
+		
+		
+		
+		Scene scn = new Scene(vb, 800, 600);
+		return scn;
+	}
+	public Scene RegistrarConsulta() {
+		
+		Button btnConsulta = new Button(" Salvar consulta ");
+		Button btnVoltar = new Button (" Voltar ");
+		
+		Label lblDesc = new Label();
+		TextArea descr = new TextArea();
+		
+		GridPane gp = new GridPane();
+		
+		gp.add(lblDesc, 0, 0);
+		gp.add(descr, 0, 3);
+		
+		Scene scn = new Scene(gp, 800, 600);
+		
+		return scn;
+	}
+	public Pane PesquisarConsulta() {
+		BorderPane bp = new BorderPane();
 		
 		TableView table = new TableView(); //Tabela
 		
@@ -78,57 +131,10 @@ public class TelaConsulta {
 				);
 		
 		table.getColumns().addAll(col1,col2, col3, col4);
-	
 		
-		//Funções dos botões
+		bp.setCenter(table);
 		
-		btnPesquisar.setOnAction( (e) -> {
-			//Consultar.control Pesquisar
-		});
-		
-		btnRegistrarConsulta.setOnAction( (e) -> {
-			Principal.changedScreen("Salvar Consulta");
-		});
-		
-		btnEditar.setOnAction( (e) -> {
-			//Consulta.control Editar
-		});
-		
-		btnExcluir.setOnAction( (e) -> {
-			//Consulta.control Excluir
-		});
-		
-		
-		btnVoltar.setOnAction( (e) -> {
-			Principal.changedScreen("Menu");
-		});
-	
-		
-
-		VBox vb = new VBox(gp, hb, table); //Painel principal
-		vb.setPadding(new Insets(10,10,10,10));
-		
-		
-		
-		Scene scn = new Scene(vb, 800, 600);
-		return scn;
-	}
-	public Scene RegistrarConsulta() {
-		
-		Button btnConsulta = new Button(" Salvar consulta ");
-		Button btnVoltar = new Button (" Voltar ");
-		
-		Label lblDesc = new Label();
-		TextArea descr = new TextArea();
-		
-		GridPane gp = new GridPane();
-		
-		gp.add(lblDesc, 0, 0);
-		gp.add(descr, 0, 3);
-		
-		Scene scn = new Scene(gp, 800, 600);
-		
-		return scn;
+		return bp;
 	}
 
 }

@@ -5,6 +5,7 @@ public class Atendente {
 	private int codFunc;
 	private String nome;
 	private String username;
+	private String senha;
 	public int getCodFunc() {
 		return codFunc;
 	}
@@ -20,8 +21,6 @@ public class Atendente {
 	public void setUsername(String username) {
 		this.username = username;
 	}
-	private String senha;
-	
 	
 	public Atendente(int codFunc, String nome, String username, String senha) {
 		this.codFunc = codFunc;

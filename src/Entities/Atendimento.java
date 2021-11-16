@@ -5,9 +5,9 @@ public class Atendimento {
 	private String data;
 	private String hora;
 	private String cpf;
-	private String codFunc;
+	private int codFunc;
 	
-	public Atendimento(String data, String hora, String cpf, String codFunc) {
+	public Atendimento(String data, String hora, String cpf, int codFunc) {
 		this.data = data;
 		this.hora = hora;
 		this.cpf = cpf;
@@ -32,10 +32,10 @@ public class Atendimento {
 	public void setCpf(String cpf) {
 		this.cpf = cpf;
 	}
-	public String getCodFunc() {
+	public int getCodFunc() {
 		return codFunc;
 	}
-	public void setCodFunc(String codFunc) {
+	public void setCodFunc(int codFunc) {
 		this.codFunc = codFunc;
 	}
 }

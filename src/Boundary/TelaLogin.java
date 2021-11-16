@@ -6,18 +6,15 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
-import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
-
-import javax.swing.*;
 
 
 public class TelaLogin {
 
     public Scene logar() {
-
+   
         Label lblUserName = new Label("Username:");
         Label lblSenha = new Label("Senha:");
 
@@ -47,13 +44,14 @@ public class TelaLogin {
         vbox.setAlignment(Pos.CENTER);
 
         btnLogin.setOnAction((e) -> {
-            Principal.changedScreen("Menu");
+           Principal.changedScreen("Menu");
         });
         btnCadastro.setOnAction((e) -> {
-            Principal.changedScreen("Cadastrar Atendente");
+            //Principal.changedScreen("Cadastrar Atendente");
         });
-
+       
         Scene scn = new Scene(vbox, 800, 600);
+        
         return scn;
     }
 }

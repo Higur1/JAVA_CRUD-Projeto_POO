@@ -1,21 +1,23 @@
 package Boundary;
 
-import Entities.Medico;
+import Entities.Especialidade;
+//import Entities.Medico;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 
 public class TelaEspecialidade {
-	public Scene RegistrarEspecialidade() {
+	public Pane RegistrarEspecialidade() {
 		
 		Button btnSlv = new Button("Salvar");
 		Button btnEdit = new Button("Editar");
@@ -50,22 +52,7 @@ public class TelaEspecialidade {
 		
 		painel.setPadding(new Insets(10,10,10,10));
 		
-		TableView table = new TableView(); //Tabela de consulta
-		
-		TableColumn<Medico, Long> col1 = new TableColumn<>("Id");
-		col1.setCellValueFactory(
-				new PropertyValueFactory<Medico, Long>("id")
-				);
-		
-		TableColumn<Medico, String> col2 = new TableColumn<>("Nome da especialidade");
-		col2.setCellValueFactory(
-				new PropertyValueFactory<Medico, String>("nome")
-				);
-		table.getColumns().addAll(col1,col2);
-		
-		
-		
-		VBox vb = new VBox(painel, hb, table); //Painel Principal
+		VBox vb = new VBox(painel, hb); //Painel Principal
 		vb.setPadding(new Insets(10,10,10,10));
 		vb.setSpacing(10);
 		
@@ -87,14 +74,29 @@ public class TelaEspecialidade {
 		btnExcluir.setOnAction( (e) -> {
 			//Consulta.control Excluir
 		});
-		btnVoltar.setOnAction( (e) -> {
-			Principal.changedScreen("Menu");
-		});
+		 //btnVoltar.setOnAction( (e) -> {
+			//Principal.changedScreen("Menu");
+		//});
+
+		return vb;
+	}
+	public Pane ConsultarEspecialidade() {
+		BorderPane bp = new BorderPane();
 		
+		TableView table = new TableView(); 
 		
-		Scene scn = new Scene(vb, 600, 300);
+		TableColumn<Especialidade, Long> col1 = new TableColumn<>("Id");
+		col1.setCellValueFactory(
+				new PropertyValueFactory<Especialidade, Long>("id")
+				);
 		
-		return scn;
-	
+		TableColumn<Especialidade, String> col2 = new TableColumn<>("Nome da especialidade");
+		col2.setCellValueFactory(
+				new PropertyValueFactory<Especialidade, String>("nome")
+				);
+		table.getColumns().addAll(col1,col2);
+		
+		bp.setCenter(table);
+		return bp;
 	}
 }

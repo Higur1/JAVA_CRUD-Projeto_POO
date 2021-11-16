@@ -4,23 +4,25 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
-import Entities.Medico;
+import Entities.Paciente;
+//import Entities.Medico;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 
 public class TelaPaciente {
 
-	public Scene Escolha() {
+	public Pane TelaPaciente() {
 		
 		HBox hb = new HBox();
 		
@@ -79,52 +81,57 @@ public class TelaPaciente {
 		});
 		
 		btnVoltar.setOnAction( (e) -> {
-			Principal.changedScreen("Menu");
+			//Principal.changedScreen("Menu");
 		});
 		
-		List<Medico> lista = new ArrayList(); 
+		List<Paciente> lista = new ArrayList(); 
 		
-		TableView <Medico> table = new TableView<>();
+		
+		
+		VBox painelP = new VBox(painel, hb);
+	
+		return painelP;
+	}
+	public Pane ConsultarPaciente() {
+		TableView <Paciente> table = new TableView<>();
 
-		TableColumn<Medico, Long> col1 = new TableColumn<>("Id");
+		TableColumn<Paciente, Long> col1 = new TableColumn<>("Id");
 		col1.setCellValueFactory(
-				new PropertyValueFactory<Medico, Long>("id")
+				new PropertyValueFactory<Paciente, Long>("id")
 				);
 		
-		TableColumn<Medico, String> col2 = new TableColumn<>("Nome");
+		TableColumn<Paciente, String> col2 = new TableColumn<>("Nome");
 		col2.setCellValueFactory(
-				new PropertyValueFactory<Medico, String>("nome")
+				new PropertyValueFactory<Paciente, String>("nome")
 				);
 		
-		TableColumn<Medico, String> col3 = new TableColumn<>("CPF");
+		TableColumn<Paciente, String> col3 = new TableColumn<>("CPF");
 		col3.setCellValueFactory(
-				new PropertyValueFactory<Medico, String>("cpf")
+				new PropertyValueFactory<Paciente, String>("cpf")
 				);
 		
-		TableColumn<Medico, String> col4 = new TableColumn<>("Telefone");
+		TableColumn<Paciente, String> col4 = new TableColumn<>("Telefone");
 		col4.setCellValueFactory(
-				new PropertyValueFactory<Medico, String>("telefone")
+				new PropertyValueFactory<Paciente, String>("telefone")
 				);
 		
-		TableColumn<Medico, String> col5 = new TableColumn<>("Endereco");
+		TableColumn<Paciente, String> col5 = new TableColumn<>("Endereco");
 		col5.setCellValueFactory(
-				new PropertyValueFactory<Medico, String>("endereco")
+				new PropertyValueFactory<Paciente, String>("endereco")
 				);
 		
-		TableColumn<Medico, String> col6 = new TableColumn<>("Sexo");
+		TableColumn<Paciente, String> col6 = new TableColumn<>("Sexo");
 		col6.setCellValueFactory(
-				new PropertyValueFactory<Medico, String>("sexo")
+				new PropertyValueFactory<Paciente, String>("sexo")
 				);
-		TableColumn<Medico , LocalDate> col7 = new TableColumn<>("Nascimento");
+		TableColumn<Paciente , LocalDate> col7 = new TableColumn<>("Nascimento");
 		col7.setCellValueFactory(
-				new PropertyValueFactory<Medico, LocalDate>("nascimento")
+				new PropertyValueFactory<Paciente, LocalDate>("nascimento")
 				);
 		table.getColumns().addAll(col1,col2,col3,col4,col5, col6, col7);
 		
-		VBox painelP = new VBox(painel, hb, table);
-		
-		Scene scn = new Scene(painelP, 800, 600);
-		
-		return scn;
+		BorderPane bp = new BorderPane();
+		bp.setCenter(table);
+		return bp;
 	}
 }

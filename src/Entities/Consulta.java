@@ -1,25 +1,42 @@
 package Entities;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 
 public class Consulta {
 	
+	private Long id;
 	private String descricao;
 	private String cpf;
 	private String crm;
-	private LocalDateTime dataHoraConsult;
+	private LocalDate dataHoraConsult;
 	
-	public Consulta(String descricao, String cpf, String crm, LocalDateTime dataHoraConsult) {
+	
+	public Consulta(String descricao, String cpf, String crm, LocalDate dataHoraConsult) {
 		this.descricao = descricao;
 		this.cpf = cpf;
 		this.crm = crm;
 		this.dataHoraConsult = dataHoraConsult;
 	}
-	
-	public LocalDateTime getDataHoraCons() {
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
+
+	public LocalDate getDataHoraConsult() {
 		return dataHoraConsult;
 	}
-	public void setDataHoraCons(LocalDateTime dataHoraCons) {
+
+	public void setDataHoraConsult(LocalDate dataHoraConsult) {
+		this.dataHoraConsult = dataHoraConsult;
+	}
+	
+	public LocalDate getDataHoraCons() {
+		return dataHoraConsult;
+	}
+	public void setDataHoraCons(LocalDate dataHoraCons) {
 		this.dataHoraConsult = dataHoraCons;
 	}
 	public String getDescricao() {
