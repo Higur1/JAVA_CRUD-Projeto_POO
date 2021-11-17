@@ -36,7 +36,7 @@ public class TelaPaciente {
 		hb.setPadding(new Insets(10,10,10,10));
 		
 		Label lblNome = new Label(" Nome: ");
-		Label lblCpf = new Label(" Cpf: ");
+		Label lblCpf = new Label(" CPF: ");
 		Label lblTel = new Label (" Telefone: ");
 		Label lblEnd = new Label(" Endereço: ");
 		Label lblSexo = new Label (" Sexo: ");
@@ -93,6 +93,27 @@ public class TelaPaciente {
 		return painelP;
 	}
 	public Pane ConsultarPaciente() {
+
+		Label lblCPF = new Label ("CPF:");
+		Label lblNome = new Label ("Nome:");
+		TextField txtCPF = new TextField();
+		TextField txtNome = new TextField();
+		Button btnPesquisar = new Button(" Pesquisar ");
+		Button btnVoltar = new Button(" Voltar ");
+
+		GridPane painel = new GridPane();
+		painel.setAlignment(Pos.TOP_LEFT);
+		painel.add(lblNome, 0, 0);
+		painel.add(txtNome, 1, 0);
+		painel.add(lblCPF, 0, 1);
+		painel.add(txtCPF, 1, 1);
+		painel.add(btnPesquisar, 0, 2);
+		painel.add(btnVoltar, 1, 2);
+
+		painel.setPadding(new Insets(10,10,10,10));
+		painel.setVgap(10);
+		painel.setHgap(10);
+
 		TableView <Paciente> table = new TableView<>();
 
 		TableColumn<Paciente, Long> col1 = new TableColumn<>("Id");
@@ -132,6 +153,8 @@ public class TelaPaciente {
 		
 		BorderPane bp = new BorderPane();
 		bp.setCenter(table);
+		bp.setTop(painel);
+
 		return bp;
 	}
 }

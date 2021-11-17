@@ -83,15 +83,35 @@ public class TelaMedico {
 			//Principal.changedScreen("Menu");
 		});
 		
-		
-		
 		VBox painelP = new VBox(painel, hb);//adicionar a tabl
 		
 		return painelP;
 	}
-	public  Pane ConsultarMedico() {
+	public Pane ConsultarMedico() {
+		VBox vBox = new VBox();
+
+		Label lblCRM = new Label ("CRM:");
+		Label lblNome = new Label ("Nome:");
+		TextField txtCRM = new TextField();
+		TextField txtNome = new TextField();
+		Button btnPesquisar = new Button(" Pesquisar ");
+		Button btnVoltar = new Button(" Voltar ");
+
+		GridPane painel = new GridPane();
+		painel.setAlignment(Pos.TOP_LEFT);
+		painel.add(lblNome, 0, 0);
+		painel.add(txtNome, 1, 0);
+		painel.add(lblCRM, 0, 1);
+		painel.add(txtCRM, 1, 1);
+		painel.add(btnPesquisar, 0, 2);
+		painel.add(btnVoltar, 1, 2);
+
+		painel.setPadding(new Insets(10,10,10,10));
+		painel.setVgap(10);
+		painel.setHgap(10);
+
 		BorderPane bp = new BorderPane();
-		
+
 		TableView <Medico> table = new TableView<>();
 
 		TableColumn<Medico, Long> col1 = new TableColumn<>("Id");
@@ -125,8 +145,9 @@ public class TelaMedico {
 		);
 				
 		table.getColumns().addAll(col1,col2,col3,col4,col5, col6);
-		
+
 		bp.setCenter(table);
+		bp.setTop(painel);
 		
 		return bp;
 	}

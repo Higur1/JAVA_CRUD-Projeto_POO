@@ -88,7 +88,7 @@ public class TelaConsulta {
 		Scene scn = new Scene(vb, 800, 600);
 		return scn;
 	}
-	public Scene RegistrarConsulta() {
+	public Pane RegistrarConsulta() {
 		
 		Button btnConsulta = new Button(" Salvar consulta ");
 		Button btnVoltar = new Button (" Voltar ");
@@ -99,13 +99,38 @@ public class TelaConsulta {
 		GridPane gp = new GridPane();
 		
 		gp.add(lblDesc, 0, 0);
-		gp.add(descr, 0, 3);
+		gp.add(descr, 1, 0);
+		gp.add(btnVoltar, 0, 1);
+		gp.add(btnConsulta, 1, 1);
 		
-		Scene scn = new Scene(gp, 800, 600);
-		
-		return scn;
+		return gp;
 	}
 	public Pane PesquisarConsulta() {
+
+		Label lblCBO = new Label ("CBO:");
+		Label lblCPF = new Label ("CPF:");
+		Label lblCRM = new Label ("CRM:");
+		TextField txtCBO = new TextField();
+		TextField txtCPF = new TextField();
+		TextField txtCRM = new TextField();
+		Button btnPesquisar = new Button(" Pesquisar ");
+		Button btnVoltar = new Button(" Voltar ");
+
+		GridPane painel = new GridPane();
+		painel.setAlignment(Pos.TOP_LEFT);
+		painel.add(lblCPF, 0, 0);
+		painel.add(txtCPF, 1, 0);
+		painel.add(lblCBO, 0, 1);
+		painel.add(txtCBO, 1, 1);
+		painel.add(lblCRM, 0, 2);
+		painel.add(txtCRM, 1, 2);
+		painel.add(btnPesquisar, 0, 3);
+		painel.add(btnVoltar, 1, 3);
+
+		painel.setPadding(new Insets(10,10,10,10));
+		painel.setVgap(10);
+		painel.setHgap(10);
+
 		BorderPane bp = new BorderPane();
 		
 		TableView table = new TableView(); //Tabela
@@ -133,7 +158,8 @@ public class TelaConsulta {
 		table.getColumns().addAll(col1,col2, col3, col4);
 		
 		bp.setCenter(table);
-		
+		bp.setTop(painel);
+
 		return bp;
 	}
 

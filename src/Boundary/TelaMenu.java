@@ -17,16 +17,16 @@ public class TelaMenu {
 		TelaEspecialidade tEspecialidade = new TelaEspecialidade();
 		TelaMedico tMedico = new TelaMedico();
 		TelaPaciente tPaciente = new TelaPaciente();
-	
+
 		BorderPane bp = new BorderPane();
 		
 		MenuBar menuBar = new MenuBar();
-			
+
 		Menu mnuCadastrar = new Menu("Cadastro");
 		Menu mnuPesquisar = new Menu("Pesquisar");
 		Menu mnuConsulta = new Menu("Consulta");
 		Menu mnuSair = new Menu("Sair");
-		
+
 		menuBar.getMenus().addAll(mnuCadastrar, mnuPesquisar, mnuConsulta,mnuSair);
 		
 		MenuItem mnuCadastrarMedico = new MenuItem("Cadastrar Medico");
@@ -43,7 +43,7 @@ public class TelaMenu {
 		});
 		MenuItem mnuRegistrarConsulta = new MenuItem("Registrar Consulta");
 		mnuRegistrarConsulta.setOnAction((e) -> {
-			
+			bp.setCenter( tConsulta.RegistrarConsulta());
 		});
 		MenuItem mnuPesquisarMedico = new MenuItem("Pesquisar Medico");
 		mnuPesquisarMedico.setOnAction((e) -> {
@@ -70,8 +70,7 @@ public class TelaMenu {
 			Platform.exit();
 			System.exit(0);
 		});
-		
-		
+
 		mnuCadastrar.getItems().addAll(mnuCadastrarMedico,mnuCadastrarPaciente,mnuCadastrarEspecialidade);
 		mnuPesquisar.getItems().addAll(mnuPesquisarMedico,mnuPesquisarPaciente,mnuPesquisarEspecialidade);
 		mnuConsulta.getItems().addAll(mnuRegistrarConsulta, mnuPesquisarConsulta);

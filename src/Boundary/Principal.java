@@ -13,7 +13,7 @@ public class Principal extends Application {
 		
 		TelaLogin tLogin = new TelaLogin();
 		
-		stg.setTitle("Clinica Medica: Login");
+		stg.setTitle("Clinica Medica");
 		stg.setScene(tLogin.logar());
 		stg.show();
 

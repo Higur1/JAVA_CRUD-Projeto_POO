@@ -27,6 +27,7 @@ public class TelaEspecialidade {
 		
 		Label lblCod = new Label(" Código CBO: ");
 		Label lblNome = new Label(" Nome da especialidade: ");
+
 		
 		TextField txtCod = new TextField();
 		TextField txtNome = new TextField();
@@ -81,13 +82,34 @@ public class TelaEspecialidade {
 		return vb;
 	}
 	public Pane ConsultarEspecialidade() {
+
+		Label lblCBO = new Label ("CBO:");
+		Label lblNome = new Label ("Nome:");
+		TextField txtCBO = new TextField();
+		TextField txtNome = new TextField();
+		Button btnPesquisar = new Button(" Pesquisar ");
+		Button btnVoltar = new Button(" Voltar ");
+
+		GridPane painel = new GridPane();
+		painel.setAlignment(Pos.TOP_LEFT);
+		painel.add(lblNome, 0, 0);
+		painel.add(txtNome, 1, 0);
+		painel.add(lblCBO, 0, 1);
+		painel.add(txtCBO, 1, 1);
+		painel.add(btnPesquisar, 0, 2);
+		painel.add(btnVoltar, 1, 2);
+
+		painel.setPadding(new Insets(10,10,10,10));
+		painel.setVgap(10);
+		painel.setHgap(10);
+
 		BorderPane bp = new BorderPane();
 		
 		TableView table = new TableView(); 
 		
-		TableColumn<Especialidade, Long> col1 = new TableColumn<>("Id");
+		TableColumn<Especialidade, String> col1 = new TableColumn<>("CBO");
 		col1.setCellValueFactory(
-				new PropertyValueFactory<Especialidade, Long>("id")
+				new PropertyValueFactory<Especialidade, String>("CBO")
 				);
 		
 		TableColumn<Especialidade, String> col2 = new TableColumn<>("Nome da especialidade");
@@ -97,6 +119,8 @@ public class TelaEspecialidade {
 		table.getColumns().addAll(col1,col2);
 		
 		bp.setCenter(table);
+		bp.setTop(painel);
+
 		return bp;
 	}
 }

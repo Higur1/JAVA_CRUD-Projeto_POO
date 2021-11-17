@@ -47,7 +47,7 @@ public class TelaLogin {
            Principal.changedScreen("Menu");
         });
         btnCadastro.setOnAction((e) -> {
-            //Principal.changedScreen("Cadastrar Atendente");
+            Principal.changedScreen("Cadastrar-se");
         });
        
         Scene scn = new Scene(vbox, 800, 600);
