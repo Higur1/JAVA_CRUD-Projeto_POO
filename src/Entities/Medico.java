@@ -13,17 +13,6 @@ public class Medico {
 	private String complemento;
 	private LocalDate nascimento;
 	
-	public Medico(String nome, Especialidade especialidade, String telefone, String crm, 
-				  String rua, String num, String cidade, LocalDate nascimento) {
-		this.nome = nome;
-		this.especialidade = especialidade;
-		this.telefone = telefone;
-		this.crm = crm;
-		this.rua = rua;
-		this.num = num;
-		this.cidade = cidade;
-		this.nascimento = nascimento;
-	}
 	public String getNome() {
 		return nome;
 	}

@@ -8,6 +8,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 
 
@@ -44,6 +45,7 @@ public class TelaLogin {
         vbox.setAlignment(Pos.CENTER);
 
         btnLogin.setOnAction((e) -> {
+           //TelaLoginController.VerificarAcesso();
            Principal.changedScreen("Menu");
         });
         btnCadastro.setOnAction((e) -> {
@@ -54,4 +56,14 @@ public class TelaLogin {
         
         return scn;
     }
+
+	public Pane GerarCodigo() {
+		Label lblCodigo = new Label("CODIGO");
+		Button btnGerarCodigo = new Button("Gerar Codigo");
+		//lblCodigo.setText(TelaLoginController.gerarCodigo());
+		
+		VBox vb = new VBox(lblCodigo, btnGerarCodigo);
+		vb.setAlignment(Pos.CENTER);
+		return vb;
+	}
 }

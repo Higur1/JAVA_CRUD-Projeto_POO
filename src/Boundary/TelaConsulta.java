@@ -3,7 +3,6 @@ package Boundary;
 import Entities.Consulta;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
@@ -11,127 +10,56 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 
 public class TelaConsulta {
-
-	public Scene render() {
+	public Pane TelaConsulta() {
+	
+		HBox hb = new HBox();
 		
+		Button btnSlv = new Button(" Salvar ");
+		Button btnEditar = new Button("Editar");
 		Button btnPesquisar = new Button(" Pesquisar ");
-		Button btnRegistrarConsulta = new Button (" Registrar consulta ");
-		Button btnEditar = new Button(" Editar consulta");
-		Button btnExcluir = new Button(" Excluir Consulta");
-		Button btnVoltar = new Button (" Voltar ");
+		Button btnExcluir = new Button("Excluir");
+		Button btnVoltar = new Button( " Voltar ");
 		
-		Label lblNomePaciente = new Label("Nome do Paciente: ");
-		Label lblCpf = new Label(" CPF: ");
-		Label lblCrm = new Label(" CRM: ");
-		TextField txtNomePaciente = new TextField("Digite aqui");
-		txtNomePaciente.setStyle("-fx-text-fill: gray; ");
-		TextField txtCpf = new TextField("Digite aqui");
-		txtCpf.setStyle("-fx-text-fill: gray");
-		TextField txtCrm = new TextField("Digite aqui");
-		txtCrm.setStyle("-fx-text-fill: gray");
-		
-		
-		GridPane gp = new GridPane(); //Painel de edição
-		
-		gp.add(lblNomePaciente, 0, 0);
-		gp.add(txtNomePaciente, 1, 0);
-		gp.add(lblCpf, 3, 0);
-		gp.add(txtCpf, 4, 0);
-		gp.add(lblCrm, 5, 0);
-		gp.add(txtCrm, 6, 0);
-		gp.setPadding(new Insets(10,10,10,10));
-		
-		HBox hb = new HBox(); //Painel dos botões
-		
-		hb.getChildren().addAll(btnPesquisar, btnRegistrarConsulta, btnEditar, btnExcluir, btnVoltar);
-		hb.setPadding(new Insets (10, 10, 10,10));
+		hb.getChildren().addAll(btnSlv, btnEditar, btnPesquisar, btnExcluir, btnVoltar);
 		hb.setAlignment(Pos.BASELINE_CENTER);
 		hb.setSpacing(10);
+		hb.setPadding(new Insets(10,10,10,10));
 		
-		//Funções dos botões
+		GridPane painel = new GridPane();
 		
-		btnPesquisar.setOnAction( (e) -> {
-			//Consultar.control Pesquisar
-		});
-		
-		btnRegistrarConsulta.setOnAction( (e) -> {
-			//Principal.changedScreen("Salvar Consulta");
-		});
-		
-		btnEditar.setOnAction( (e) -> {
-			//Consulta.control Editar
-		});
-		
-		btnExcluir.setOnAction( (e) -> {
-			//Consulta.control Excluir
-		});
-		
-		
-		btnVoltar.setOnAction( (e) -> {
-			//Principal.changedScreen("Menu");
-		});
-	
-		
-
-		VBox vb = new VBox(gp, hb); //Painel principal
-		vb.setPadding(new Insets(10,10,10,10));
-		
-		
-		
-		Scene scn = new Scene(vb, 800, 600);
-		return scn;
-	}
-	public Pane RegistrarConsulta() {
-		
-		Button btnConsulta = new Button(" Salvar consulta ");
-		Button btnVoltar = new Button (" Voltar ");
-		
-		Label lblDesc = new Label();
-		TextArea descr = new TextArea();
-		
-		GridPane gp = new GridPane();
-		
-		gp.add(lblDesc, 0, 0);
-		gp.add(descr, 1, 0);
-		gp.add(btnVoltar, 0, 1);
-		gp.add(btnConsulta, 1, 1);
-		
-		return gp;
-	}
-	public Pane PesquisarConsulta() {
-
 		Label lblCBO = new Label ("CBO:");
 		Label lblCPF = new Label ("CPF:");
 		Label lblCRM = new Label ("CRM:");
 		TextField txtCBO = new TextField();
 		TextField txtCPF = new TextField();
 		TextField txtCRM = new TextField();
-		Button btnPesquisar = new Button(" Pesquisar ");
-		Button btnVoltar = new Button(" Voltar ");
-
-		GridPane painel = new GridPane();
-		painel.setAlignment(Pos.TOP_LEFT);
-		painel.add(lblCPF, 0, 0);
-		painel.add(txtCPF, 1, 0);
-		painel.add(lblCBO, 0, 1);
-		painel.add(txtCBO, 1, 1);
-		painel.add(lblCRM, 0, 2);
-		painel.add(txtCRM, 1, 2);
-		painel.add(btnPesquisar, 0, 3);
-		painel.add(btnVoltar, 1, 3);
-
+		
+		Label lblDesc = new Label("Descricao:");
+		TextArea descr = new TextArea();
+		
 		painel.setPadding(new Insets(10,10,10,10));
 		painel.setVgap(10);
 		painel.setHgap(10);
+		
+		painel.add(lblCBO, 0, 0);
+		painel.add(txtCBO, 1, 0);
+		painel.add(lblCPF, 0, 1);
+		painel.add(txtCPF, 1, 1);
+		painel.add(lblCRM, 0, 2);
+		painel.add(txtCRM, 1, 2);
+		painel.add(lblDesc, 0, 3);
+		painel.add(descr, 1, 3);
+		
+		txtCBO.setMaxWidth(150);
+		txtCPF.setMaxWidth(150);
+		txtCRM.setMaxWidth(150);
 
-		BorderPane bp = new BorderPane();
 		
 		TableView table = new TableView(); //Tabela
 		
@@ -157,10 +85,28 @@ public class TelaConsulta {
 		
 		table.getColumns().addAll(col1,col2, col3, col4);
 		
-		bp.setCenter(table);
-		bp.setTop(painel);
-
-		return bp;
+		btnSlv.setOnAction( (e) -> {
+			//Consultar.control Salvar
+		});
+		
+		btnEditar.setOnAction( (e) -> {
+			//Consultar.contrl Edit
+		});
+		
+		btnPesquisar.setOnAction( (e) -> {
+			//Consulta.control Pesquisar
+		});
+		
+		btnExcluir.setOnAction( (e) -> {
+			//Consulta.control Excluir
+		});
+		 //btnVoltar.setOnAction( (e) -> {
+			//Principal.changedScreen("Menu");
+		//});
+		
+		VBox vb = new VBox(painel, hb, table);
+		
+		return vb;
 	}
 
 }

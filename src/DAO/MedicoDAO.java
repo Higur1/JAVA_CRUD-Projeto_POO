@@ -6,8 +6,7 @@ import Entities.Medico;
 
 public interface MedicoDAO {
 	void adicionar(Medico medico);
-	void atualizar(Medico medico);
-	void excluir(Long id);
-	Medico encontrarId(Long id);
-	List<Medico> mostrarTodos();
+	void remover(String crm);
+	void atualizar(String crm, Medico m);
+	List<Medico> pesquisarPorCRM(String crm);
 }

@@ -6,8 +6,7 @@ import Entities.Paciente;
 
 public interface PacienteDAO {
 	void adicionar(Paciente paciente);
-	void atualizar(Paciente paciente);
-	void excluir(Long id);
-	Paciente encontrarId(Long id);
-	List<Paciente> mostrarTodos();
+	void remover(String cpf);
+	void atualizar(String string, Paciente p);
+	List<Paciente> pesquisarPorCPF(String cpf);
 }

@@ -27,16 +27,20 @@ public class Principal extends Application {
 	public static void changedScreen(String nome) {
 		TelaMenu tMenu = new TelaMenu();
 		TelaLogin tLogin = new TelaLogin();
+		TelaAtendente tAtendente = new TelaAtendente();
 		
 		switch(nome){
 			case "Menu":
+				stage.setTitle("Clinica Medica");
 				stage.setScene(tMenu.Menu());
 				break;
 			case "Login":
 				stage.setTitle("Clinica Medica: Login");
 				stage.setScene(tLogin.logar());
 				break;
+			case "Cadastrar-se":
+				stage.setTitle("Clinica Medica: Cadastro do Atendente");
+				stage.setScene(tAtendente.CadastroAtendente());
 		}
-		
 	}
 }

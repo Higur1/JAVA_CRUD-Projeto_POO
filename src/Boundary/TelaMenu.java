@@ -1,6 +1,7 @@
 package Boundary;
 
 import javafx.application.Platform;
+import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.control.Menu;
@@ -10,71 +11,75 @@ import javafx.scene.layout.BorderPane;
 
 public class TelaMenu {
 	public Scene Menu(){
+		BorderPane bp = new BorderPane();
 		
 		Label bv = new Label("Bem Vindo");
+	
+		bv.setMinSize(350,300);
+		bv.setAlignment(Pos.CENTER);
 		
+		bp.setCenter(bv);
+		
+		TelaAtendente tAtendente = new TelaAtendente();
 		TelaConsulta tConsulta = new TelaConsulta();
 		TelaEspecialidade tEspecialidade = new TelaEspecialidade();
 		TelaMedico tMedico = new TelaMedico();
 		TelaPaciente tPaciente = new TelaPaciente();
-
-		BorderPane bp = new BorderPane();
+		TelaLogin tLogin = new TelaLogin();
 		
 		MenuBar menuBar = new MenuBar();
 
-		Menu mnuCadastrar = new Menu("Cadastro");
-		Menu mnuPesquisar = new Menu("Pesquisar");
-		Menu mnuConsulta = new Menu("Consulta");
+		Menu mnuMenu = new Menu("Menu");
 		Menu mnuSair = new Menu("Sair");
-
-		menuBar.getMenus().addAll(mnuCadastrar, mnuPesquisar, mnuConsulta,mnuSair);
+		Menu mnuCodigo = new Menu("Codigo");
 		
-		MenuItem mnuCadastrarMedico = new MenuItem("Cadastrar Medico");
-		mnuCadastrarMedico.setOnAction((e) -> {
+		MenuItem mnuAtendente = new MenuItem("Atendente");
+		mnuAtendente.setOnAction((e) -> {
+			bp.setCenter( tAtendente.TelaAtendente());
+		});
+		
+		MenuItem mnuMedico = new MenuItem("Medico");
+		mnuMedico.setOnAction((e) -> {
 			bp.setCenter( tMedico.TelaMedico());
 		});
-		MenuItem mnuCadastrarPaciente = new MenuItem("Cadastrar Paciente");
-		mnuCadastrarPaciente.setOnAction((e) -> {
+		
+		MenuItem mnuPaciente = new MenuItem("Paciente");
+		mnuPaciente.setOnAction((e) -> {
 			bp.setCenter( tPaciente.TelaPaciente());
 		});
-		MenuItem mnuCadastrarEspecialidade = new MenuItem("Cadastrar Especialidade");
-		mnuCadastrarEspecialidade.setOnAction((e) -> {
-			bp.setCenter( tEspecialidade.RegistrarEspecialidade());
+		
+		MenuItem mnuEspecialidade = new MenuItem("Especialidade");
+		mnuEspecialidade.setOnAction((e) -> {
+			bp.setCenter( tEspecialidade.TelaEspecialidade());
 		});
-		MenuItem mnuRegistrarConsulta = new MenuItem("Registrar Consulta");
-		mnuRegistrarConsulta.setOnAction((e) -> {
-			bp.setCenter( tConsulta.RegistrarConsulta());
+		
+		MenuItem mnuConsulta = new MenuItem("Consulta");
+		mnuConsulta.setOnAction((e) -> {
+			bp.setCenter(tConsulta.TelaConsulta());
 		});
-		MenuItem mnuPesquisarMedico = new MenuItem("Pesquisar Medico");
-		mnuPesquisarMedico.setOnAction((e) -> {
-			bp.setCenter( tMedico.ConsultarMedico());
+		
+		MenuItem mnuGerarCodigo = new MenuItem("Gerar codigo");
+		mnuGerarCodigo.setOnAction((e) -> {
+			bp.setCenter(tLogin.GerarCodigo());
 		});
-		MenuItem mnuPesquisarPaciente = new MenuItem("Pesquisar Paciente");
-		mnuPesquisarPaciente.setOnAction((e) -> {
-			bp.setCenter( tPaciente.ConsultarPaciente());
-		});
-		MenuItem mnuPesquisarEspecialidade = new MenuItem("Pesquisar Especialidade");
-		mnuPesquisarEspecialidade.setOnAction((e) -> {
-			bp.setCenter( tEspecialidade.ConsultarEspecialidade());
-		});
-		MenuItem mnuPesquisarConsulta = new MenuItem("Pesquisar Consulta");
-		mnuPesquisarConsulta.setOnAction((e) -> {
-			bp.setCenter( tConsulta.PesquisarConsulta());
-		});
-		MenuItem mnuLogOff = new MenuItem("LogOff");
-		mnuLogOff.setOnAction((e) -> {
+		
+		MenuItem mnuLogOut = new MenuItem("Deslogar");
+		mnuLogOut.setOnAction((e) -> {
 			Principal.changedScreen("Login");
 		});
-		MenuItem mnuFechar = new MenuItem("Sair");
+		
+		MenuItem mnuFechar = new MenuItem("Fechar");
 		mnuFechar.setOnAction((e) -> {
 			Platform.exit();
 			System.exit(0);
 		});
+	
+		menuBar.getMenus().addAll(mnuMenu, mnuCodigo, mnuSair);
 
-		mnuCadastrar.getItems().addAll(mnuCadastrarMedico,mnuCadastrarPaciente,mnuCadastrarEspecialidade);
-		mnuPesquisar.getItems().addAll(mnuPesquisarMedico,mnuPesquisarPaciente,mnuPesquisarEspecialidade);
-		mnuConsulta.getItems().addAll(mnuRegistrarConsulta, mnuPesquisarConsulta);
-		mnuSair.getItems().addAll(mnuLogOff, mnuFechar);
+		mnuMenu.getItems().addAll(mnuAtendente, mnuMedico, mnuPaciente, mnuEspecialidade, mnuConsulta);
+		mnuCodigo.getItems().add(mnuGerarCodigo);
+		mnuSair.getItems().addAll(mnuLogOut, mnuFechar);
+		
 		
 		bp.setTop(menuBar);
 	

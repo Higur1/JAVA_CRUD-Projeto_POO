@@ -5,25 +5,14 @@ import java.time.LocalDate;
 public class Paciente {
 	private String nome;
 	private String cpf;
-	private char sexo;
+	private String sexo;
 	private LocalDate nascm;
 	private String telefone;
 	private String rua;
 	private String num;
 	private String cidade;
 	private String complemento;
-	
-	public Paciente(String nome, String cpf, char sexo, LocalDate nascm, String telefone, 
-					String rua, String num, String cidade) {
-		this.nome = nome;
-		this.cpf = cpf;
-		this.sexo = sexo;
-		this.nascm = nascm;
-		this.telefone = telefone;
-		this.rua = rua;
-		this.num = num;
-		this.cidade = cidade;
-	}
+
 	public String getNome() {
 		return nome;
 	}
@@ -36,11 +25,11 @@ public class Paciente {
 	public void setCpf(String cpf) {
 		this.cpf = cpf;
 	}
-	public char getSexo() {
+	public String getSexo() {
 		return sexo;
 	}
-	public void setSexo(char sexo) {
-		this.sexo = sexo;
+	public void setSexo(String String) {
+		this.sexo = String;
 	}
 	public String getTelefone() {
 		return telefone;

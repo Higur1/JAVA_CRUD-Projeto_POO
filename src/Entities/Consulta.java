@@ -8,14 +8,14 @@ public class Consulta {
 	private String descricao;
 	private String cpf;
 	private String crm;
-	private LocalDate dataHoraConsult;
+	private LocalDate dataConsult;
 	
 	
 	public Consulta(String descricao, String cpf, String crm, LocalDate dataHoraConsult) {
 		this.descricao = descricao;
 		this.cpf = cpf;
 		this.crm = crm;
-		this.dataHoraConsult = dataHoraConsult;
+		this.dataConsult = dataHoraConsult;
 	}
 	public Long getId() {
 		return id;
@@ -26,18 +26,18 @@ public class Consulta {
 	}
 
 	public LocalDate getDataHoraConsult() {
-		return dataHoraConsult;
+		return dataConsult;
 	}
 
 	public void setDataHoraConsult(LocalDate dataHoraConsult) {
-		this.dataHoraConsult = dataHoraConsult;
+		this.dataConsult = dataHoraConsult;
 	}
 	
 	public LocalDate getDataHoraCons() {
-		return dataHoraConsult;
+		return dataConsult;
 	}
 	public void setDataHoraCons(LocalDate dataHoraCons) {
-		this.dataHoraConsult = dataHoraCons;
+		this.dataConsult = dataHoraCons;
 	}
 	public String getDescricao() {
 		return descricao;

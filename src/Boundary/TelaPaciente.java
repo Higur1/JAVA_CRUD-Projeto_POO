@@ -14,23 +14,27 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
+import javafx.scene.shape.Circle;
 
 public class TelaPaciente {
-
+	
+	private List<Paciente> lista = new ArrayList(); 
+	
 	public Pane TelaPaciente() {
 		
 		HBox hb = new HBox();
 		
 		Button btnSlv = new Button(" Salvar ");
+		Button btnEditar = new Button("Editar");
 		Button btnPesquisar = new Button(" Pesquisar ");
+		Button btnExcluir = new Button("Excluir");
 		Button btnVoltar = new Button( " Voltar ");
 		
-		hb.getChildren().addAll(btnSlv, btnPesquisar, btnVoltar);
+		hb.getChildren().addAll(btnSlv, btnEditar, btnPesquisar, btnExcluir, btnVoltar);
 		hb.setAlignment(Pos.BASELINE_CENTER);
 		hb.setSpacing(10);
 		hb.setPadding(new Insets(10,10,10,10));
@@ -70,50 +74,7 @@ public class TelaPaciente {
 		painel.setHgap(10);
 		
 		painel.setPadding(new Insets(10,10,10,10));
-		
-		
-		btnSlv.setOnAction( (e) -> {
-			//MedicoControl
-		});
-		
-		btnPesquisar.setOnAction( (e) -> {
-			//MedicoControl
-		});
-		
-		btnVoltar.setOnAction( (e) -> {
-			//Principal.changedScreen("Menu");
-		});
-		
-		List<Paciente> lista = new ArrayList(); 
-		
-		
-		
-		VBox painelP = new VBox(painel, hb);
 	
-		return painelP;
-	}
-	public Pane ConsultarPaciente() {
-
-		Label lblCPF = new Label ("CPF:");
-		Label lblNome = new Label ("Nome:");
-		TextField txtCPF = new TextField();
-		TextField txtNome = new TextField();
-		Button btnPesquisar = new Button(" Pesquisar ");
-		Button btnVoltar = new Button(" Voltar ");
-
-		GridPane painel = new GridPane();
-		painel.setAlignment(Pos.TOP_LEFT);
-		painel.add(lblNome, 0, 0);
-		painel.add(txtNome, 1, 0);
-		painel.add(lblCPF, 0, 1);
-		painel.add(txtCPF, 1, 1);
-		painel.add(btnPesquisar, 0, 2);
-		painel.add(btnVoltar, 1, 2);
-
-		painel.setPadding(new Insets(10,10,10,10));
-		painel.setVgap(10);
-		painel.setHgap(10);
-
 		TableView <Paciente> table = new TableView<>();
 
 		TableColumn<Paciente, Long> col1 = new TableColumn<>("Id");
@@ -151,10 +112,29 @@ public class TelaPaciente {
 				);
 		table.getColumns().addAll(col1,col2,col3,col4,col5, col6, col7);
 		
-		BorderPane bp = new BorderPane();
-		bp.setCenter(table);
-		bp.setTop(painel);
-
-		return bp;
+		
+		
+		btnSlv.setOnAction( (e) -> {
+			//Consultar.control Salvar
+		});
+		
+		btnEditar.setOnAction( (e) -> {
+			//Consultar.contrl Edit
+		});
+		
+		btnPesquisar.setOnAction( (e) -> {
+			//Consulta.control Pesquisar
+		});
+		
+		btnExcluir.setOnAction( (e) -> {
+			//Consulta.control Excluir
+		});
+		 btnVoltar.setOnAction( (e) -> {
+			//Principal.changedScreen("Menu");
+		});
+		
+		VBox vb = new VBox(painel, hb, table);
+		 
+		return vb;
 	}
 }
