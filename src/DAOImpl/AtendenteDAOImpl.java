@@ -1,41 +1,39 @@
 package DAOImpl;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.List;
 
 import DAO.AtendenteDAO;
+import DAO.GenericDAO;
 import Entities.Atendente;
 
 public class AtendenteDAOImpl implements AtendenteDAO{
-	private static final String URIDB = "jdbc:mariadb://localhost:3306/clinica";
-	private static final String USER = "admin";
-	private static final String PASSWORD = "1234";
+
+	private Connection c;
 
 	public AtendenteDAOImpl() {
+		GenericDAO gDao = new GenericDAO();
 		try {
-			Class.forName("org.mariadb.jdbc.Driver");
-		} catch (Exception e) {
+			c = gDao.getConnection();
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-	}
-	public Connection getConnection() throws SQLException{
-		return DriverManager.getConnection(URIDB, USER, PASSWORD);
 	}
 	
 	@Override
 	public void adicionar(Atendente atendente) {
 		try {
-			Connection con = getConnection();
 			String sql = "INSERT INTO atendente(nome, username, senha)" + "VALUES(?, ?, ?)";
-			PreparedStatement st = con.prepareStatement(sql);
+
+			PreparedStatement st = c.prepareStatement(sql);
 			st.setString(1, atendente.getNome());
 			st.setString(2, atendente.getUsername());
 			st.setString(3, atendente.getSenha());
-			st.executeUpdate();
-			con.close();
+
+			st.execute();
+			st.close();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -44,36 +42,61 @@ public class AtendenteDAOImpl implements AtendenteDAO{
 	@Override
 	public void atualizar(Atendente atendente) {
 		try {
-			Connection con = getConnection();
 			String sql = "UPDATE atendente SET nome = ?, username = ?, senha = ? where codFunc = ?" + "VALUES(?,?,?,?)";
-			PreparedStatement st = con.prepareStatement(sql);
+
+			PreparedStatement st = c.prepareStatement(sql);
 			st.setString(1, atendente.getNome());
 			st.setString(2, atendente.getUsername());
 			st.setString(3, atendente.getSenha());
 			st.setInt(4, atendente.getCodFunc());
-			st.executeUpdate();
-			con.close();
+
+			st.execute();
+			st.close();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 	}
+
 	@Override
 	public void excluir(int id) {
 		try {
-			Connection con = getConnection();
 			String sql = "DELETE FROM atendente WHERE codFunc = ?";
-			PreparedStatement st = con.prepareStatement(sql);
+
+			PreparedStatement st = c.prepareStatement(sql);
 			st.setInt(1, id);
-			st.executeUpdate();
-			con.close();
+
+			st.execute();
+			st.close();
 		} catch (SQLException e) {
 			
 			e.printStackTrace();
 		}	
 	}
 	@Override
-	public Atendente encontrarId(int id) {
+	public Atendente buscarPorCodFunc(int codFunc) {
 		return null;
+	}
+
+	@Override
+	public boolean encontrarAcesso(String username, String senha) {
+		try{
+			String sql = "SELECT * FROM atedente WHERE username = ? AND senha = ?";
+
+			PreparedStatement st = c.prepareStatement(sql);
+			st.setString(1, username);
+			st.setString(2, senha);
+
+			ResultSet rs = st.executeQuery();
+
+			if(rs.wasNull()){
+				System.out.println("Username ou Senha incorretos!!!");
+				return false;
+			}
+		} catch (SQLException e){
+			System.out.println(e);
+			return false;
+		}
+		return true;
 	}
 
 	@Override

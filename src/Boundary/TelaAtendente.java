@@ -1,5 +1,6 @@
 package Boundary;
 
+import Controller.TelaAtendenteController;
 import Entities.Atendente;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -15,9 +16,11 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 
+import java.sql.SQLException;
+
 public class TelaAtendente {
 
-    public Scene CadastroAtendente (){
+    public Scene CadastroAtendente () throws SQLException, ClassNotFoundException {
         Label lblUserName = new Label("Username:");
         Label lblSenha = new Label("Senha:");
         Label lblNome = new Label("Nome:");
@@ -27,6 +30,8 @@ public class TelaAtendente {
         TextField txtSenha = new TextField();
         TextField txtNome = new TextField();
         TextField txtCodFunc = new TextField();
+
+        TelaAtendenteController control = new TelaAtendenteController();
 
         Button btnSalvar = new Button("Salvar");
         Button btnVoltar = new Button("Voltar");
@@ -52,10 +57,22 @@ public class TelaAtendente {
         
         btnSalvar.setOnAction((e) -> {
         	//TelaLoginController.VerificarCodigo();
-            Principal.changedScreen("Menu");
+            try {
+                Principal.changedScreen("Menu");
+            } catch (SQLException ex) {
+                ex.printStackTrace();
+            } catch (ClassNotFoundException ex) {
+                ex.printStackTrace();
+            }
         });
         btnVoltar.setOnAction((e) -> {
-            Principal.changedScreen("Login");
+            try {
+                Principal.changedScreen("Login");
+            } catch (SQLException ex) {
+                ex.printStackTrace();
+            } catch (ClassNotFoundException ex) {
+                ex.printStackTrace();
+            }
         });
 
         VBox vbox = new VBox(gPane, hbox);

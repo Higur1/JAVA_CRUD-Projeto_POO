@@ -9,6 +9,8 @@ import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuItem;
 import javafx.scene.layout.BorderPane;
 
+import java.sql.SQLException;
+
 public class TelaMenu {
 	public Scene Menu(){
 		BorderPane bp = new BorderPane();
@@ -65,7 +67,13 @@ public class TelaMenu {
 		
 		MenuItem mnuLogOut = new MenuItem("Deslogar");
 		mnuLogOut.setOnAction((e) -> {
-			Principal.changedScreen("Login");
+			try {
+				Principal.changedScreen("Login");
+			} catch (SQLException ex) {
+				ex.printStackTrace();
+			} catch (ClassNotFoundException ex) {
+				ex.printStackTrace();
+			}
 		});
 		
 		MenuItem mnuFechar = new MenuItem("Fechar");

@@ -6,6 +6,11 @@ public class Atendente {
 	private String nome;
 	private String username;
 	private String senha;
+
+	public Atendente() {
+
+	}
+
 	public int getCodFunc() {
 		return codFunc;
 	}

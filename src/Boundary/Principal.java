@@ -3,6 +3,8 @@ package Boundary;
 import javafx.application.Application;
 import javafx.stage.Stage;
 
+import java.sql.SQLException;
+
 public class Principal extends Application {
 
 	private static Stage stage;
@@ -24,7 +26,7 @@ public class Principal extends Application {
 
 	}
 	
-	public static void changedScreen(String nome) {
+	public static void changedScreen(String nome) throws SQLException, ClassNotFoundException {
 		TelaMenu tMenu = new TelaMenu();
 		TelaLogin tLogin = new TelaLogin();
 		TelaAtendente tAtendente = new TelaAtendente();

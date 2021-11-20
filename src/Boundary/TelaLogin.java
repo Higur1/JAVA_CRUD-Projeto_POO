@@ -1,5 +1,7 @@
 package Boundary;
 
+import Controller.TelaAtendenteController;
+import Interface.Autenticavel;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
@@ -10,6 +12,8 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
+
+import java.sql.SQLException;
 
 
 public class TelaLogin {
@@ -46,10 +50,22 @@ public class TelaLogin {
 
         btnLogin.setOnAction((e) -> {
            //TelaLoginController.VerificarAcesso();
-           Principal.changedScreen("Menu");
+            try {
+                Principal.changedScreen("Menu");
+            } catch (SQLException ex) {
+                ex.printStackTrace();
+            } catch (ClassNotFoundException ex) {
+                ex.printStackTrace();
+            }
         });
         btnCadastro.setOnAction((e) -> {
-            Principal.changedScreen("Cadastrar-se");
+            try {
+                Principal.changedScreen("Cadastrar-se");
+            } catch (SQLException ex) {
+                ex.printStackTrace();
+            } catch (ClassNotFoundException ex) {
+                ex.printStackTrace();
+            }
         });
        
         Scene scn = new Scene(vbox, 800, 600);
@@ -60,9 +76,25 @@ public class TelaLogin {
 	public Pane GerarCodigo() {
 		Label lblCodigo = new Label("CODIGO");
 		Button btnGerarCodigo = new Button("Gerar Codigo");
+        Button btnVoltar = new Button("Voltar");
 		//lblCodigo.setText(TelaLoginController.gerarCodigo());
-		
-		VBox vb = new VBox(lblCodigo, btnGerarCodigo);
+        btnGerarCodigo.setOnAction((e)->{
+            lblCodigo.setText("1A2B3C");
+        });
+
+        btnVoltar.setOnAction((e)->{
+            try {
+                Principal.changedScreen("Menu");
+            } catch (SQLException ex) {
+                ex.printStackTrace();
+            } catch (ClassNotFoundException ex) {
+                ex.printStackTrace();
+            }
+        });
+
+		VBox vb = new VBox(lblCodigo, btnGerarCodigo, btnVoltar);
+
+        vb.setSpacing(10);
 		vb.setAlignment(Pos.CENTER);
 		return vb;
 	}
