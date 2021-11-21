@@ -1,39 +1,32 @@
 package DAOImpl;
 
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 import DAO.ConsultaDAO;
+import DAO.GenericDAO;
 import Entities.Consulta;
 
 public class ConsultaDAOImpl implements ConsultaDAO{
-	private static final String URIDB = "jdbc:mariadb://localhost:3306/clinica";
-	private static final String USER = "admin";
-	private static final String PASSWORD = "1234";
 
-	public ConsultaDAOImpl() {
-		try {
-			Class.forName("org.mariadb.jdbc.Driver");
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	}
-	public Connection getConnection() throws SQLException{
-		return DriverManager.getConnection(URIDB, USER, PASSWORD);
-	}
+	private Connection con;
+	
+	GenericDAO gDao = new GenericDAO();
+	
 	@Override
 	public void adicionar(Consulta consulta) {
 		try {
-			Connection con = getConnection();
-			String sql = "INSERT INTO consulta(descricao, cpf, crm, dataHoraConsult)" + "VALUES(?, ?, ?,?)";
+			Connection con = gDao.getConnection();
+			String sql = "INSERT INTO consulta(cpf, crm, descricao, data)" + "VALUES(?, ?, ?,?)";
 			PreparedStatement st = con.prepareStatement(sql);
-			st.setString(1, consulta.getDescricao());
-			st.setString(2, consulta.getCpf());
-			st.setString(3, consulta.getCrm());
-			st.setDate(4, java.sql.Date.valueOf(consulta.getDataHoraCons()));
+			st.setString(1, consulta.getCpf());
+			st.setString(2, consulta.getCrm());
+			st.setString(3, consulta.getDescricao());
+			st.setDate(4, java.sql.Date.valueOf(consulta.getData()));
 			st.executeUpdate();
 			con.close();
 		} catch (SQLException e) {
@@ -43,14 +36,11 @@ public class ConsultaDAOImpl implements ConsultaDAO{
 	@Override
 	public void atualizar(Consulta consulta) {
 		try {
-			Connection con = getConnection();
-			String sql = "UPDATE atendimento SET descricao = ?, cpf = ?, crm = ?, dataHoraConsult = ? Where id = ?" + "VALUES(?, ?, ?,?, ?)";
+			Connection con = gDao.getConnection();
+			String sql = "UPDATE consulta SET descricao = ? Where id = ?" + "VALUES(?, ?)";
 			PreparedStatement st = con.prepareStatement(sql);
 			st.setString(1, consulta.getDescricao());
-			st.setString(2, consulta.getCpf());
-			st.setString(3, consulta.getCrm());
-			st.setDate(4, java.sql.Date.valueOf(consulta.getDataHoraCons()));
-			st.setLong(5, consulta.getId());
+			st.setLong(2, consulta.getId());
 			st.executeUpdate();
 			con.close();
 		} catch (SQLException e) {
@@ -59,10 +49,9 @@ public class ConsultaDAOImpl implements ConsultaDAO{
 		
 	}
 	@Override
-	public void excluir(Long id) {
-		Connection con;
+	public void excluir(long id) {
 		try {
-			con = getConnection();
+			Connection con = gDao.getConnection();
 			String sql = "DELETE FROM consulta WHERE id = ?";
 			PreparedStatement st = con.prepareStatement(sql);
 			st.setLong(1, id);
@@ -73,13 +62,30 @@ public class ConsultaDAOImpl implements ConsultaDAO{
 		}
 	}
 	@Override
-	public Consulta encontrarId(Long id) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-	@Override
-	public List<Consulta> mostrarTodos() {
-		// TODO Auto-generated method stub
-		return null;
+	public List<Consulta> pesquisarTodos() {
+		List<Consulta> lista = new ArrayList<>();
+	        try {
+	        	Connection con = gDao.getConnection();
+	            String sql = "SELECT * FROM consulta";
+	            System.out.println(sql);
+	            PreparedStatement st = con.prepareStatement(sql);
+	            ResultSet rs = st.executeQuery();
+
+	            while( rs.next() ) {
+	                Consulta cons = new Consulta();
+	                
+	            	cons.setId(rs.getLong("id"));
+	            	cons.setCpf(rs.getString("cpf"));
+	                cons.setCrm(rs.getString("crm"));
+	                cons.setData(rs.getDate("data").toLocalDate());
+	                cons.setDescricao(rs.getString("descricao"));
+	                
+	            	lista.add(cons);
+	            }
+	           con.close();
+	        } catch (SQLException e) {
+	            e.printStackTrace();
+	        }
+	        return lista;
 	}
 }

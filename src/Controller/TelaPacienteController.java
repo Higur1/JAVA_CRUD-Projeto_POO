@@ -15,82 +15,74 @@ import javafx.collections.ObservableList;
 
 public class TelaPacienteController{
 	
-	StringProperty nome = new SimpleStringProperty("");
-	StringProperty cpf = new SimpleStringProperty("");
-	StringProperty sexo = new SimpleStringProperty("");
-	ObjectProperty nascimento = new SimpleObjectProperty(LocalDate.now());
-	StringProperty telefone = new SimpleStringProperty("");
-	StringProperty rua = new SimpleStringProperty("");
-	StringProperty num = new SimpleStringProperty("");
-	StringProperty cidade = new SimpleStringProperty("");
-	StringProperty complemento = new SimpleStringProperty("");
+	public StringProperty nome = new SimpleStringProperty("");
+	public StringProperty cpf = new SimpleStringProperty("");
+	public StringProperty sexo = new SimpleStringProperty("");
+	public ObjectProperty nascimento = new SimpleObjectProperty(LocalDate.now());
+	public StringProperty telefone = new SimpleStringProperty("");
+	public StringProperty rua = new SimpleStringProperty("");
+	public StringProperty num = new SimpleStringProperty("");
+	public StringProperty cidade = new SimpleStringProperty("");
+	public StringProperty complemento = new SimpleStringProperty("");
 	
-	private PacienteDAO pacD = new PacienteDAOImpl();
+	
 	private ObservableList<Paciente> pacientes = FXCollections.observableArrayList();
 	
-	
-	public void adicionar(Paciente paciente) {
-		Paciente p = new Paciente();
-		pacD.adicionar(paciente);
+	private PacienteDAO pacienteDAO;
+	{
+		pacienteDAO = new PacienteDAOImpl();
 	}
-	
+	public void adicionar() {
+		Paciente paciente = toEntity();
+		pacienteDAO.adicionar(paciente);
+		pacienteDAO.pesquisarTodos();
+	}
 	public void atualizar() {
-		Paciente p = toEntity();
-		pacD.atualizar(cpf.get(), p);
-		
+		Paciente paciente = toEntity();
+		pacienteDAO.atualizar(cpf.get(), paciente);
+		pacienteDAO.pesquisarTodos();
 	}
-	
 	public void pesquisar() {
 		pacientes.clear();
-		List<Paciente> encontrados = pacD.pesquisarPorCPF(cpf.get());
+		List<Paciente> encontrados = pacienteDAO.pesquisarTodos();
 		pacientes.addAll(encontrados);
 		if(!pacientes.isEmpty()) {
 			fromEntity(pacientes.get(0));
 		}
 	}
-	
-	public void remover(String cpf) {
-		pacD.remover(cpf);
+	public void excluir(String cpf) {
+		pacienteDAO.excluir(cpf);
+		pacienteDAO.pesquisarTodos();
 	}
-	
-	public List<Paciente> pesquisarPorCPF(String cpf) {
-		
-		return null;
-	}
-	
 	public Paciente toEntity() {
-		Paciente p = new Paciente();
+		Paciente paciente = new Paciente();
 		
-		p.setNome(nome.get());
-		p.setCpf(cpf.get());
-		p.setSexo(sexo.get());
-		p.setNascm((LocalDate) nascimento.get());
-		p.setTelefone(telefone.get());
-		p.setRua(rua.get());
-		p.setNum(num.get());
-		p.setCidade(cidade.get());
-		p.setComplemento(complemento.get());
+		paciente.setNome(nome.get());
+		paciente.setCpf(cpf.get());
+		paciente.setSexo(sexo.get());
+		paciente.setNascm((LocalDate) nascimento.get());
+		paciente.setTelefone(telefone.get());
+		paciente.setRua(rua.get());
+		paciente.setNum(num.get());
+		paciente.setCidade(cidade.get());
+		paciente.setComplemento(complemento.get());
 		
-		return p;
+		return paciente;
 	}
-	
-	public void fromEntity(Paciente p) {
+	public void fromEntity(Paciente paciente) {
 		
-		nome.set(p.getNome());
-		cpf.set(p.getCpf());
-		sexo.set(p.getSexo());
-		nascimento.set(p.getNascm());
-		telefone.set(p.getTelefone());
-		rua.set(p.getRua());
-		num.set(p.getNum());
-		cidade.set(p.getCidade());
-		complemento.set(p.getComplemento());
+		nome.set(paciente.getNome());
+		cpf.set(paciente.getCpf());
+		sexo.set(paciente.getSexo());
+		nascimento.set(paciente.getNascm());
+		telefone.set(paciente.getTelefone());
+		rua.set(paciente.getRua());
+		num.set(paciente.getNum());
+		cidade.set(paciente.getCidade());
+		complemento.set(paciente.getComplemento());
 	}
-	
 	public ObservableList<Paciente> getLista(){
 		return pacientes;
 	}
-
-	
 }
 

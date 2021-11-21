@@ -1,30 +1,18 @@
 package Entities;
 
+import java.time.LocalDate;
+
 public class Atendimento {
 	
-	private String data;
-	private String hora;
+	private LocalDate data;
 	private String cpf;
 	private int codFunc;
 	
-	public Atendimento(String data, String hora, String cpf, int codFunc) {
-		this.data = data;
-		this.hora = hora;
-		this.cpf = cpf;
-		this.codFunc = codFunc;
-	}
-	
-	public String getData() {
+	public LocalDate getData() {
 		return data;
 	}
-	public void setData(String data) {
+	public void setData(LocalDate data) {
 		this.data = data;
-	}
-	public String getHora() {
-		return hora;
-	}
-	public void setHora(String hora) {
-		this.hora = hora;
 	}
 	public String getCpf() {
 		return cpf;
@@ -38,4 +26,5 @@ public class Atendimento {
 	public void setCodFunc(int codFunc) {
 		this.codFunc = codFunc;
 	}
+
 }

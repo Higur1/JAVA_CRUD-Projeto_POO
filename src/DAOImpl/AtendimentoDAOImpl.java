@@ -3,11 +3,14 @@ package DAOImpl;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 import DAO.AtendimentoDAO;
 import Entities.Atendimento;
+import Entities.Consulta;
 
 public class AtendimentoDAOImpl implements AtendimentoDAO{
 	private static final String URIDB = "jdbc:mariadb://localhost:3306/clinica";
@@ -29,37 +32,32 @@ public class AtendimentoDAOImpl implements AtendimentoDAO{
 	public void adicionar(Atendimento atendimento) {
 		try {
 			Connection con = getConnection();
-			String sql = "INSERT INTO atendimento(data, hora, cpf, codFunc)" + "VALUES(?, ?, ?,?)";
+			String sql = "INSERT INTO atendimento(cpf, data, codFunc)" + "VALUES(?, ?, ?)";
 			PreparedStatement st = con.prepareStatement(sql);
-			st.setString(1, atendimento.getData());
-			st.setString(2, atendimento.getHora());
-			st.setString(3, atendimento.getCpf());
-			st.setInt(4, atendimento.getCodFunc());
+			st.setString(1, atendimento.getCpf());
+			st.setDate(2, java.sql.Date.valueOf(atendimento.getData()));	
+			st.setInt(3, atendimento.getCodFunc());
 			st.executeUpdate();
 			con.close();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}	
 	}
-
 	@Override
 	public void atualizar(Atendimento atendimento) {
 		try {
 			Connection con = getConnection();
-			String sql = "UPDATE atendimento SET nome = ?, username = ?, senha = ? where codFunc = ?" + "VALUES(?,?,?,?)";
+			String sql = "UPDATE atendimento SET cpf = ?, data = ? where codFunc = ?" + "VALUES(?,?,?,?)";
 			PreparedStatement st = con.prepareStatement(sql);
-			st.setString(1, atendimento.getData());
-			st.setString(2, atendimento.getHora());
-			st.setString(3, atendimento.getCpf());
-			st.setInt(4, atendimento.getCodFunc());
+			st.setString(1, atendimento.getCpf());
+			st.setDate(2, java.sql.Date.valueOf(atendimento.getData()));
+			st.setInt(3, atendimento.getCodFunc());
 			st.executeUpdate();
 			con.close();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		
 	}
-
 	@Override
 	public void excluir(int id) {
 		try {
@@ -70,20 +68,31 @@ public class AtendimentoDAOImpl implements AtendimentoDAO{
 			st.executeUpdate();
 			con.close();
 		} catch (SQLException e) {
-			
 			e.printStackTrace();
 		}	
 	}
-
-	@Override
-	public Atendimento encontrarId(int id) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
 	@Override
 	public List<Atendimento> mostrarTodos() {
-		// TODO Auto-generated method stub
-		return null;
+		List<Atendimento> lista = new ArrayList<>();
+        try {
+        	Connection con = getConnection();
+            String sql = "SELECT * FROM atendimento";
+            System.out.println(sql);
+            PreparedStatement st = con.prepareStatement(sql);
+            ResultSet rs = st.executeQuery();
+
+            while( rs.next() ) {
+               Atendimento atend = new Atendimento();
+               
+               atend.setCpf(rs.getString("cpf"));
+               atend.setData(rs.getDate("Data").toLocalDate());
+               atend.setCodFunc(rs.getInt("codFunc")); 
+               lista.add(atend);
+            }
+           con.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return lista;
 	}
 }

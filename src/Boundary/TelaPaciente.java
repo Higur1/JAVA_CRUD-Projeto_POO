@@ -1,15 +1,17 @@
 package Boundary;
 
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.List;
 
+import Controller.TelaPacienteController;
+import Entities.Medico;
 import Entities.Paciente;
+import javafx.beans.binding.Bindings;
 //import Entities.Medico;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
@@ -18,39 +20,53 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
-import javafx.scene.shape.Circle;
+import javafx.util.converter.LocalDateStringConverter;
 
 public class TelaPaciente {
 	
-	private List<Paciente> lista = new ArrayList(); 
+	private TelaPacienteController control = new TelaPacienteController();
 	
 	public Pane TelaPaciente() {
 		
 		HBox hb = new HBox();
 		
-		Button btnSlv = new Button(" Salvar ");
+		Button btnAdicionar = new Button("Adicionar");
 		Button btnEditar = new Button("Editar");
-		Button btnPesquisar = new Button(" Pesquisar ");
-		Button btnExcluir = new Button("Excluir");
-		Button btnVoltar = new Button( " Voltar ");
+		Button btnPesquisar = new Button("Pesquisar");
 		
-		hb.getChildren().addAll(btnSlv, btnEditar, btnPesquisar, btnExcluir, btnVoltar);
+		hb.getChildren().addAll(btnAdicionar, btnEditar, btnPesquisar);
 		hb.setAlignment(Pos.BASELINE_CENTER);
 		hb.setSpacing(10);
 		hb.setPadding(new Insets(10,10,10,10));
 		
-		Label lblNome = new Label(" Nome: ");
-		Label lblCpf = new Label(" CPF: ");
+		Label lblNome = new Label("Nome:");
+		Label lblCpf = new Label("CPF:");
+		Label lblRua = new Label("Rua:");
+		Label lblNum = new Label("Num:");
+		Label lblCidade = new Label("Cidade:");
+		Label lblComp = new Label("Complemento:");
 		Label lblTel = new Label (" Telefone: ");
-		Label lblEnd = new Label(" Endereço: ");
 		Label lblSexo = new Label (" Sexo: ");
 		Label lblNasc = new Label (" Data de nascimento: ");
 		TextField txtNome = new TextField();
 		TextField txtCpf = new TextField();
+		TextField txtRua = new TextField();
+		TextField txtNum = new TextField();
+		TextField txtCidade = new TextField();
+		TextField txtComp = new TextField();
 		TextField txtTel = new TextField();
-		TextField txtEnd = new TextField();
 		TextField txtSexo = new TextField();
 		TextField txtNasc = new TextField();
+		
+		Bindings.bindBidirectional(txtNome.textProperty(), control.nome);
+		Bindings.bindBidirectional(txtCpf.textProperty(), control.cpf);
+		Bindings.bindBidirectional(txtSexo.textProperty(), control.sexo);
+		Bindings.bindBidirectional(txtTel.textProperty(), control.telefone);
+		Bindings.bindBidirectional(txtNasc.textProperty(), control.nascimento, new LocalDateStringConverter());
+		Bindings.bindBidirectional(txtRua.textProperty(), control.rua);
+		Bindings.bindBidirectional(txtNum.textProperty(), control.num);
+		Bindings.bindBidirectional(txtCidade.textProperty(), control.cidade);
+		Bindings.bindBidirectional(txtComp.textProperty(), control.complemento);
 		
 		GridPane painel = new GridPane();
 		
@@ -62,13 +78,18 @@ public class TelaPaciente {
 		painel.add(txtCpf, 1, 1);
 		painel.add(lblTel, 0, 2);
 		painel.add(txtTel, 1, 2);
-		
-		painel.add(lblEnd, 2, 0);
-		painel.add(txtEnd, 3, 0);
-		painel.add(lblSexo, 2, 1);
-		painel.add(txtSexo, 3, 1);
-		painel.add(lblNasc, 2, 2);
-		painel.add(txtNasc, 3, 2);
+		painel.add(lblSexo, 2, 0);
+		painel.add(txtSexo, 3, 0);
+		painel.add(lblNasc, 2, 1);
+		painel.add(txtNasc, 3, 1);
+		painel.add(lblRua, 2, 2);
+		painel.add(txtRua, 3, 2);
+		painel.add(lblNum, 4, 0);
+		painel.add(txtNum, 5, 0);
+		painel.add(lblCidade, 4, 1);
+		painel.add(txtCidade, 5, 1);
+		painel.add(lblComp, 4, 2);
+		painel.add(txtComp, 5, 2);
 	
 		painel.setVgap(10);
 		painel.setHgap(10);
@@ -76,61 +97,79 @@ public class TelaPaciente {
 		painel.setPadding(new Insets(10,10,10,10));
 	
 		TableView <Paciente> table = new TableView<>();
-
-		TableColumn<Paciente, Long> col1 = new TableColumn<>("Id");
+		
+		TableColumn<Paciente, String> col1 = new TableColumn<>("Nome");
 		col1.setCellValueFactory(
-				new PropertyValueFactory<Paciente, Long>("id")
+				new PropertyValueFactory<Paciente, String>("Nome")
 				);
-		
-		TableColumn<Paciente, String> col2 = new TableColumn<>("Nome");
+		TableColumn<Paciente, String> col2 = new TableColumn<>("CPF");
 		col2.setCellValueFactory(
-				new PropertyValueFactory<Paciente, String>("nome")
+				new PropertyValueFactory<Paciente, String>("Cpf")
 				);
-		
-		TableColumn<Paciente, String> col3 = new TableColumn<>("CPF");
+		TableColumn<Paciente, String> col3 = new TableColumn<>("Telefone");
 		col3.setCellValueFactory(
-				new PropertyValueFactory<Paciente, String>("cpf")
-				);
-		
-		TableColumn<Paciente, String> col4 = new TableColumn<>("Telefone");
-		col4.setCellValueFactory(
 				new PropertyValueFactory<Paciente, String>("telefone")
 				);
-		
-		TableColumn<Paciente, String> col5 = new TableColumn<>("Endereco");
-		col5.setCellValueFactory(
-				new PropertyValueFactory<Paciente, String>("endereco")
-				);
-		
-		TableColumn<Paciente, String> col6 = new TableColumn<>("Sexo");
-		col6.setCellValueFactory(
+		TableColumn<Paciente, String> col4 = new TableColumn<>("Sexo");
+		col4.setCellValueFactory(
 				new PropertyValueFactory<Paciente, String>("sexo")
 				);
-		TableColumn<Paciente , LocalDate> col7 = new TableColumn<>("Nascimento");
-		col7.setCellValueFactory(
+		TableColumn<Paciente , LocalDate> col5 = new TableColumn<>("Nascimento");
+		col5.setCellValueFactory(
 				new PropertyValueFactory<Paciente, LocalDate>("nascimento")
 				);
-		table.getColumns().addAll(col1,col2,col3,col4,col5, col6, col7);
-		
-		
-		
-		btnSlv.setOnAction( (e) -> {
-			//Consultar.control Salvar
+		TableColumn<Paciente, String> col6 = new TableColumn<>("Rua");
+		col6.setCellValueFactory(
+			new PropertyValueFactory<Paciente, String>("rua")
+		);
+		TableColumn<Paciente, String> col7 = new TableColumn<>("Num");
+		col7.setCellValueFactory(
+			new PropertyValueFactory<Paciente, String>("num")
+		);
+		TableColumn<Paciente, String> col8 = new TableColumn<>("Cidade");
+		col8.setCellValueFactory(
+			new PropertyValueFactory<Paciente, String>("cidade")
+		);
+		TableColumn<Paciente, String> col9= new TableColumn<>("Complemento");
+		col9.setCellValueFactory(
+			new PropertyValueFactory<Paciente, String>("complemento")
+		);
+		TableColumn<Paciente, String> col10 = new TableColumn<>("Ações");
+	        col10.setCellFactory( (tbcol) -> {
+	            Button btnRemover = new Button("Remover");
+	            TableCell<Paciente, String> tcell = new TableCell<Paciente, String>() {
+	                @Override
+	                protected void updateItem(String item, boolean empty) {
+	                    if (empty) {
+	                        setGraphic(null);
+	                        setText(null);
+	                    } else {
+	                        btnRemover.setOnAction( (e) -> {
+	                            Paciente paciente = getTableView().getItems().get(getIndex());
+	                            control.excluir(paciente.getCpf());
+	                            control.pesquisar();
+	                        });
+	                        setGraphic(btnRemover);
+	                        setText(null);
+	                    }
+	                }
+	            };
+	            return tcell;
+	            }
+	        );
+		table.getColumns().addAll(col1,col2,col3,col4,col5, col6, col7, col8, col9, col10);
+		table.setItems(control.getLista());
+		table.getSelectionModel().selectedItemProperty().addListener( (obs, old, novo) -> {
+			control.fromEntity((Paciente) novo);
 		});
-		
+		btnAdicionar.setOnAction( (e) -> {
+			control.adicionar();
+		});
 		btnEditar.setOnAction( (e) -> {
-			//Consultar.contrl Edit
+			control.atualizar();
 		});
-		
 		btnPesquisar.setOnAction( (e) -> {
-			//Consulta.control Pesquisar
-		});
-		
-		btnExcluir.setOnAction( (e) -> {
-			//Consulta.control Excluir
-		});
-		 btnVoltar.setOnAction( (e) -> {
-			//Principal.changedScreen("Menu");
+			control.pesquisar();
 		});
 		
 		VBox vb = new VBox(painel, hb, table);

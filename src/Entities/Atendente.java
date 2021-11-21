@@ -7,10 +7,12 @@ public class Atendente {
 	private String username;
 	private String senha;
 
-	public Atendente() {
-
+	public int getId() {
+		return codFunc;
 	}
-
+	public void setId(int codFunc) {
+		this.codFunc = codFunc;
+	}
 	public int getCodFunc() {
 		return codFunc;
 	}
@@ -25,20 +27,6 @@ public class Atendente {
 
 	public void setUsername(String username) {
 		this.username = username;
-	}
-	
-	public Atendente(int codFunc, String nome, String username, String senha) {
-		this.codFunc = codFunc;
-		this.nome = nome;
-		this.username = username;
-		this.senha = senha;
-	}
-	
-	public int getId() {
-		return codFunc;
-	}
-	public void setId(int codFunc) {
-		this.codFunc = codFunc;
 	}
 	public String getNome() {
 		return nome;

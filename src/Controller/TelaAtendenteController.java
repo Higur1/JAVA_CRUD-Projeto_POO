@@ -1,7 +1,10 @@
 package Controller;
 
-import DAOImpl.AtendenteDAOImpl;
+import java.sql.SQLException;
+import java.util.List;
+
 import DAO.AtendenteDAO;
+import DAOImpl.AtendenteDAOImpl;
 import Entities.Atendente;
 import Interface.Autenticavel;
 import javafx.beans.property.IntegerProperty;
@@ -11,46 +14,56 @@ import javafx.beans.property.StringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
-import javax.swing.*;
-import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.List;
-
 public class TelaAtendenteController implements Autenticavel {
-	IntegerProperty codFunc = new SimpleIntegerProperty(0);
-	StringProperty nome = new SimpleStringProperty("");
-	StringProperty username = new SimpleStringProperty("");
-	StringProperty senha = new SimpleStringProperty("");
+
+		public StringProperty nome = new SimpleStringProperty("");
+		public StringProperty username = new SimpleStringProperty("");
+		public StringProperty senha = new SimpleStringProperty("");
+		public IntegerProperty codFunc = new SimpleIntegerProperty(0);
 
 	private AtendenteDAO atendenteDAO;
 	{
 		atendenteDAO = new AtendenteDAOImpl();
 	}
 
-	private List<Atendente> atendentesGeral = new ArrayList<>();
 	private ObservableList<Atendente> atendentes = FXCollections.observableArrayList();
 
-	public TelaAtendenteController() {
+	public void adicionar() throws SQLException {
+		Atendente atendente = toEntity();
+		atendenteDAO.adicionar(atendente);
+		atendenteDAO.pesquisarTodos();
 	}
-
-	public void adicionar() {
-		Atendente atendente = new Atendente();
-
-	}
-
-	@Override
-	public void autenticar(String username, String senha) {
-		boolean autenticado = false;
+	public void salvar(){
+		Atendente atendente = toEntity();
 		try {
-			autenticado = atendenteDAO.encontrarAcesso(username, senha);
+			if(atendente.getCodFunc() == 0) {
+				atendenteDAO.adicionar(atendente);
+				atendenteDAO.pesquisarTodos();
+			}else {
+				atendenteDAO.atualizar(codFunc.get(), atendente);
+				atendenteDAO.pesquisarTodos();
+			}
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		if(!autenticado){
-			System.out.println("Usuário ou senha inválidos!!!");;
+	}
+	public void pesquisar() {
+		atendentes.clear();
+		try {
+			List<Atendente> lista = atendenteDAO.pesquisarTodos();
+			atendentes.addAll(lista);
+			if(!atendentes.isEmpty()) {
+				fromEntity(atendentes.get(0));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
 		}
 	}
 
+	public void remover(int codFunc){
+		atendenteDAO.excluir(codFunc);
+	}
+	
 	public Atendente toEntity() {
 		Atendente atendente = new Atendente();
 		atendente.setCodFunc(codFunc.get());
@@ -65,5 +78,20 @@ public class TelaAtendenteController implements Autenticavel {
 		nome.set(atendente.getNome());
 		username.set(atendente.getUsername());
 		senha.set(atendente.getSenha());
+	}
+	@Override
+	public void autenticar(String username, String senha) {
+		boolean autenticado = false;
+		try {
+			autenticado = atendenteDAO.encontrarAcesso(username, senha);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		if(!autenticado){
+			System.out.println("Usuário ou senha inválidos!!!");;
+		}
+	}
+	public ObservableList<Atendente> getLista(){
+		return atendentes;
 	}
 }

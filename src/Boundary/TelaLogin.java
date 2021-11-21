@@ -68,7 +68,7 @@ public class TelaLogin {
             }
         });
        
-        Scene scn = new Scene(vbox, 800, 600);
+        Scene scn = new Scene(vbox, 600, 400);
         
         return scn;
     }

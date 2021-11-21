@@ -11,12 +11,6 @@ public class Consulta {
 	private LocalDate dataConsult;
 	
 	
-	public Consulta(String descricao, String cpf, String crm, LocalDate dataHoraConsult) {
-		this.descricao = descricao;
-		this.cpf = cpf;
-		this.crm = crm;
-		this.dataConsult = dataHoraConsult;
-	}
 	public Long getId() {
 		return id;
 	}
@@ -25,19 +19,12 @@ public class Consulta {
 		this.id = id;
 	}
 
-	public LocalDate getDataHoraConsult() {
+	public LocalDate getData() {
 		return dataConsult;
 	}
 
-	public void setDataHoraConsult(LocalDate dataHoraConsult) {
-		this.dataConsult = dataHoraConsult;
-	}
-	
-	public LocalDate getDataHoraCons() {
-		return dataConsult;
-	}
-	public void setDataHoraCons(LocalDate dataHoraCons) {
-		this.dataConsult = dataHoraCons;
+	public void setData(LocalDate data) {
+		this.dataConsult = data;
 	}
 	public String getDescricao() {
 		return descricao;

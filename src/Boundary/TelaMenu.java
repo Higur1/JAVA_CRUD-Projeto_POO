@@ -91,7 +91,7 @@ public class TelaMenu {
 		
 		bp.setTop(menuBar);
 	
-		Scene scn = new Scene(bp, 700, 600);
+		Scene scn = new Scene(bp, 830, 650);
 		return scn;
 	}
 }

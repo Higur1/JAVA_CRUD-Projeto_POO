@@ -1,6 +1,10 @@
 package DAOImpl;
 
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 import DAO.AtendenteDAO;
@@ -9,47 +13,36 @@ import Entities.Atendente;
 
 public class AtendenteDAOImpl implements AtendenteDAO{
 
-	private Connection c;
-
-	public AtendenteDAOImpl() {
-		GenericDAO gDao = new GenericDAO();
-		try {
-			c = gDao.getConnection();
-		} catch (ClassNotFoundException e) {
-			e.printStackTrace();
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-	}
+	GenericDAO gDao = new GenericDAO();
 	
 	@Override
 	public void adicionar(Atendente atendente) {
 		try {
-			String sql = "INSERT INTO atendente(nome, username, senha)" + "VALUES(?, ?, ?)";
-
-			PreparedStatement st = c.prepareStatement(sql);
-			st.setString(1, atendente.getNome());
-			st.setString(2, atendente.getUsername());
-			st.setString(3, atendente.getSenha());
-
-			st.execute();
-			st.close();
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-	}
-
-	@Override
-	public void atualizar(Atendente atendente) {
-		try {
-			String sql = "UPDATE atendente SET nome = ?, username = ?, senha = ? where codFunc = ?" + "VALUES(?,?,?,?)";
-
-			PreparedStatement st = c.prepareStatement(sql);
+			Connection con = gDao.getConnection();
+			String sql = "INSERT INTO atendente(nome, username, senha, codFunc)" + "VALUES(?, ?, ?, ?)";
+			PreparedStatement st = con.prepareStatement(sql);
 			st.setString(1, atendente.getNome());
 			st.setString(2, atendente.getUsername());
 			st.setString(3, atendente.getSenha());
 			st.setInt(4, atendente.getCodFunc());
+			st.execute();
+			st.close();
+			con.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
 
+	@Override
+	public void atualizar(int codFunc, Atendente atendente) {
+		try {
+			Connection con = gDao.getConnection();
+			String sql = "UPDATE atendente SET nome = ?, username = ?, senha = ? where codFunc = ?";
+			PreparedStatement st = con.prepareStatement(sql);
+			st.setString(1, atendente.getNome());
+			st.setString(2, atendente.getUsername());
+			st.setString(3, atendente.getSenha());
+			st.setInt(4, atendente.getCodFunc());
 			st.execute();
 			st.close();
 		} catch (SQLException e) {
@@ -58,36 +51,31 @@ public class AtendenteDAOImpl implements AtendenteDAO{
 	}
 
 	@Override
-	public void excluir(int id) {
+	public void excluir(int codFunc) {
 		try {
+			Connection con = gDao.getConnection();
 			String sql = "DELETE FROM atendente WHERE codFunc = ?";
-
-			PreparedStatement st = c.prepareStatement(sql);
-			st.setInt(1, id);
-
-			st.execute();
+			PreparedStatement st = con.prepareStatement(sql);
+			st.setInt(1, codFunc);
+			System.out.println(sql);
+			st.executeUpdate();
 			st.close();
 		} catch (SQLException e) {
-			
 			e.printStackTrace();
 		}	
 	}
 	@Override
-	public Atendente buscarPorCodFunc(int codFunc) {
-		return null;
-	}
-
-	@Override
 	public boolean encontrarAcesso(String username, String senha) {
 		try{
+			Connection con = gDao.getConnection();
 			String sql = "SELECT * FROM atedente WHERE username = ? AND senha = ?";
 
-			PreparedStatement st = c.prepareStatement(sql);
+			PreparedStatement st = con.prepareStatement(sql);
 			st.setString(1, username);
 			st.setString(2, senha);
-
 			ResultSet rs = st.executeQuery();
-
+			
+			con.close();
 			if(rs.wasNull()){
 				System.out.println("Username ou Senha incorretos!!!");
 				return false;
@@ -100,9 +88,27 @@ public class AtendenteDAOImpl implements AtendenteDAO{
 	}
 
 	@Override
-	public List<Atendente> mostrarTodos() {
-		// TODO Auto-generated method stub
-		return null;
+	public List<Atendente> pesquisarTodos() {
+		 List<Atendente> lista = new ArrayList<>();
+	        try {
+	        	Connection con = gDao.getConnection();
+	            String sql = "SELECT * FROM atendente";
+	            System.out.println(sql);
+	            PreparedStatement stmt = con.prepareStatement(sql);
+	            ResultSet rs = stmt.executeQuery();
+
+	            while( rs.next() ) {
+	                Atendente a = new Atendente();
+	                a.setNome(rs.getString("nome"));
+	                a.setUsername(rs.getString("userName"));
+	                a.setSenha(rs.getString("senha"));
+	                a.setCodFunc(rs.getInt("codFunc"));
+	                lista.add(a);
+	            }
+	          	con.close();
+	        } catch (SQLException e) {
+	            e.printStackTrace();
+	        }
+	        return lista;
 	}
-	
 }

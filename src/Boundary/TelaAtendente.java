@@ -1,12 +1,17 @@
 package Boundary;
 
+import java.sql.SQLException;
+
 import Controller.TelaAtendenteController;
 import Entities.Atendente;
+import Entities.Especialidade;
+import javafx.beans.binding.Bindings;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
@@ -15,12 +20,14 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
-
-import java.sql.SQLException;
+import javafx.util.converter.NumberStringConverter;
 
 public class TelaAtendente {
 
+	private TelaAtendenteController control = new TelaAtendenteController();
+	
     public Scene CadastroAtendente () throws SQLException, ClassNotFoundException {
+    	  	
         Label lblUserName = new Label("Username:");
         Label lblSenha = new Label("Senha:");
         Label lblNome = new Label("Nome:");
@@ -29,10 +36,13 @@ public class TelaAtendente {
         TextField txtUsername = new TextField();
         TextField txtSenha = new TextField();
         TextField txtNome = new TextField();
-        TextField txtCodFunc = new TextField();
+        TextField txtCodFunc = new TextField(); 
 
-        TelaAtendenteController control = new TelaAtendenteController();
-
+        Bindings.bindBidirectional(txtUsername.textProperty(), control.username);
+        Bindings.bindBidirectional(txtSenha.textProperty(), control.senha);
+        Bindings.bindBidirectional(txtNome.textProperty(), control.nome);
+        Bindings.bindBidirectional(txtCodFunc.textProperty(), control.codFunc, new NumberStringConverter());
+        
         Button btnSalvar = new Button("Salvar");
         Button btnVoltar = new Button("Voltar");
 
@@ -56,14 +66,12 @@ public class TelaAtendente {
         hbox.setAlignment(Pos.BASELINE_CENTER);
         
         btnSalvar.setOnAction((e) -> {
-        	//TelaLoginController.VerificarCodigo();
             try {
-                Principal.changedScreen("Menu");
-            } catch (SQLException ex) {
-                ex.printStackTrace();
-            } catch (ClassNotFoundException ex) {
-                ex.printStackTrace();
-            }
+				control.adicionar();
+				Principal.changedScreen("Login");
+			} catch (SQLException | ClassNotFoundException e1) {
+				e1.printStackTrace();
+			}
         });
         btnVoltar.setOnAction((e) -> {
             try {
@@ -85,11 +93,11 @@ public class TelaAtendente {
     public Pane TelaAtendente() {
     	
     	HBox hb = new HBox();
-
+    	
+    	Button btnEditar = new Button("Editar");
 		Button btnPesquisar = new Button(" Pesquisar ");
-		Button btnExcluir = new Button("Excluir");
-		
-		hb.getChildren().addAll(btnPesquisar, btnExcluir);
+
+		hb.getChildren().addAll(btnEditar, btnPesquisar);
 		hb.setAlignment(Pos.BASELINE_CENTER);
 		hb.setSpacing(10);
 		hb.setPadding(new Insets(10,10,10,10));
@@ -98,10 +106,16 @@ public class TelaAtendente {
 		
 		Label lblNome = new Label ("Nome:");
 		Label lblUsername = new Label ("Username:");
-
+		Label lblSenha = new Label("Senha");
+		
 		TextField txtNome = new TextField();
 		TextField txtUsername = new TextField();
-
+		TextField txtSenha = new TextField();
+		
+		Bindings.bindBidirectional(txtUsername.textProperty(), control.username);
+        Bindings.bindBidirectional(txtSenha.textProperty(), control.senha);
+        Bindings.bindBidirectional(txtNome.textProperty(), control.nome);
+		
 		painel.setPadding(new Insets(10,10,10,10));
 		painel.setVgap(10);
 		painel.setHgap(10);
@@ -110,6 +124,8 @@ public class TelaAtendente {
 		painel.add(txtNome, 1, 0);
 		painel.add(lblUsername, 0, 1);
 		painel.add(txtUsername, 1, 1);
+		painel.add(lblSenha, 0, 2);
+		painel.add(txtSenha, 1, 2);
 
 		txtNome.setMaxWidth(150);
 		txtUsername.setMaxWidth(150);
@@ -125,17 +141,54 @@ public class TelaAtendente {
 		col2.setCellValueFactory(
 				new PropertyValueFactory<Atendente, String>("Username")
 				);
-
-		table.getColumns().addAll(col1,col2);
+		TableColumn<Atendente, String> col3 = new TableColumn<>("Senha");
+		col3.setCellValueFactory(
+				new PropertyValueFactory<Atendente, String>("senha")
+				);
+		TableColumn<Atendente, String> col4 = new TableColumn<>("Codigo do funcionario");
+		col4.setCellValueFactory(
+				new PropertyValueFactory<Atendente, String>("codFunc")
+				);
+		 TableColumn<Atendente, String> col5 = new TableColumn<>("Ações");
+	        col5.setCellFactory( (tbcol) -> {
+	            Button btnRemover = new Button("Remover");
+	            TableCell<Atendente, String> tcell = new TableCell<Atendente, String>() {
+	                @Override
+	                protected void updateItem(String item, boolean empty) {
+	                    if (empty) {
+	                        setGraphic(null);
+	                        setText(null);
+	                    } else {
+	                        btnRemover.setOnAction( (e) -> {
+	                            Atendente a = getTableView().getItems().get(getIndex());
+	                            control.remover(a.getCodFunc());
+	                            control.pesquisar();
+	                        });
+	                        setGraphic(btnRemover);
+	                        setText(null);
+	                    }
+	                }
+	            };
+	            return tcell;
+	            }
+	        );
+		
+		table.getColumns().addAll(col1,col2, col3, col4, col5);
+		table.setItems(control.getLista());
+		table.getSelectionModel().selectedItemProperty().addListener( (obs, old, novo) -> {
+			control.fromEntity((Atendente) novo);
+		});
 	
 		btnPesquisar.setOnAction( (e) -> {
-			//Atendente.control Pesquisar
+			control.pesquisar();
 		});
-		
-		btnExcluir.setOnAction( (e) -> {
-			//Atendente.control Excluir
+		btnEditar.setOnAction( (e) -> {
+			try {
+				control.salvar();
+			} catch (Exception e1) {
+				e1.printStackTrace();
+			}
 		});
-		
 		VBox vb = new VBox(painel, hb, table);
 		
 		return vb;	
