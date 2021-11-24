@@ -10,6 +10,7 @@ import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
@@ -28,7 +29,7 @@ public class TelaLogin {
         Label lblSenha = new Label("Senha:");
 
         TextField txtUsername = new TextField();
-        TextField txtSenha = new TextField();
+        PasswordField txtSenha = new PasswordField();
 
         Button btnLogin = new Button("Login");
         Button btnCadastro = new Button("Cadastrar-se");
@@ -89,7 +90,8 @@ public class TelaLogin {
         Button btnVoltar = new Button("Voltar");
 		//lblCodigo.setText(TelaLoginController.gerarCodigo());
         btnGerarCodigo.setOnAction((e)->{
-            lblCodigo.setText("1A2B3C");
+            int codigo = loginController.gerarCodigo();
+            lblCodigo.setText(""+codigo);
         });
 
         btnVoltar.setOnAction((e)->{

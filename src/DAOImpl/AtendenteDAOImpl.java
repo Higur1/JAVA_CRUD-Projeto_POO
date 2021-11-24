@@ -19,17 +19,53 @@ public class AtendenteDAOImpl implements AtendenteDAO{
 	public void adicionar(Atendente atendente) {
 		try {
 			Connection con = gDao.getConnection();
-			String sql = "INSERT INTO atendente(codFunc,nome, username, senha)" + "VALUES(null, ?, ?, ?)";
+			String sql = "INSERT INTO atendente(codFunc,nome, username, senha)" + "VALUES(?, ?, ?, ?)";
 			PreparedStatement st = con.prepareStatement(sql);
-			st.setString(1, atendente.getNome());
-			st.setString(2, atendente.getUsername());
-			st.setString(3, atendente.getSenha());
+			st.setInt(1,atendente.getCodFunc());
+			st.setString(2, atendente.getNome());
+			st.setString(3, atendente.getUsername());
+			st.setString(4, atendente.getSenha());
 			st.execute();
 			st.close();
 			con.close();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
+	}
+
+	public void adicionarCodigo(int codigo) {
+		try {
+			Connection con = gDao.getConnection();
+			String sql = "INSERT INTO Codigo(codGerado)" + "VALUES(?)";
+			PreparedStatement st = con.prepareStatement(sql);
+			st.setInt(1, codigo);
+			st.execute();
+			st.close();
+			con.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
+
+	public boolean verificarCodigo(int codigo){
+		boolean x;
+		try{
+			Connection con = gDao.getConnection();
+			String sql = "SELECT * FROM Codigo WHERE codGerado = ?";
+
+			PreparedStatement st = con.prepareStatement(sql);
+			st.setInt(1, codigo);
+			ResultSet rs = st.executeQuery();
+
+			con.close();
+			if(!rs.first()){
+				x = false;
+			} else { x = true; }
+		} catch (SQLException e){
+			e.printStackTrace();
+			x = false;
+		}
+		return x;
 	}
 
 	@Override

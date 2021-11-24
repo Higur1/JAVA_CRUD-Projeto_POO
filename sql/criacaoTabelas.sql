@@ -2,13 +2,19 @@
 
 USE dbClinicaMedica
 
+create table Codigo (
+    codGerado int not null primary key
+)
+
 CREATE TABLE Atendente (
-    codFunc INT NOT NULL primary key AUTO_INCREMENT,
+    codFunc INT NOT NULL,
     nome VARCHAR(100) NOT null,
-    username  VARCHAR(30) NOT NULL,
-    senha VARCHAR(20) NOT NULL
+    username  VARCHAR(30) NOT NULL primary key,
+    senha VARCHAR(20) NOT NULL,
+    foreign key (codFunc) references Codigo(codGerado)
     )
-    
+
+
 CREATE TABLE Paciente (
     nome VARCHAR(100) NOT NULL,
     cpf VARCHAR(11) NOT NULL PRIMARY KEY,
@@ -58,3 +64,7 @@ CREATE TABLE Consulta (
     FOREIGN KEY (cpf) REFERENCES Paciente (cpf),
     FOREIGN KEY (crm) REFERENCES Medico (crm)
     )
+
+INSERT INTO Codigo VALUES (1)
+
+atendenteINSERT INTO Atendente VALUES (1,'adm','root','1234')
