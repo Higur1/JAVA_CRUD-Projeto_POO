@@ -19,12 +19,11 @@ public class AtendenteDAOImpl implements AtendenteDAO{
 	public void adicionar(Atendente atendente) {
 		try {
 			Connection con = gDao.getConnection();
-			String sql = "INSERT INTO atendente(nome, username, senha, codFunc)" + "VALUES(?, ?, ?, ?)";
+			String sql = "INSERT INTO atendente(codFunc,nome, username, senha)" + "VALUES(null, ?, ?, ?)";
 			PreparedStatement st = con.prepareStatement(sql);
 			st.setString(1, atendente.getNome());
 			st.setString(2, atendente.getUsername());
 			st.setString(3, atendente.getSenha());
-			st.setInt(4, atendente.getCodFunc());
 			st.execute();
 			st.close();
 			con.close();
@@ -66,9 +65,10 @@ public class AtendenteDAOImpl implements AtendenteDAO{
 	}
 	@Override
 	public boolean encontrarAcesso(String username, String senha) {
+		boolean x;
 		try{
 			Connection con = gDao.getConnection();
-			String sql = "SELECT * FROM atedente WHERE username = ? AND senha = ?";
+			String sql = "SELECT * FROM atendente WHERE username = ? AND senha = ?";
 
 			PreparedStatement st = con.prepareStatement(sql);
 			st.setString(1, username);
@@ -76,15 +76,16 @@ public class AtendenteDAOImpl implements AtendenteDAO{
 			ResultSet rs = st.executeQuery();
 			
 			con.close();
-			if(rs.wasNull()){
+			if(!rs.first()){
 				System.out.println("Username ou Senha incorretos!!!");
-				return false;
-			}
+				x = false;
+			} else { x = true; }
 		} catch (SQLException e){
-			System.out.println(e);
-			return false;
+			e.printStackTrace();
+			x = false;
 		}
-		return true;
+		System.out.println(x);
+		return x;
 	}
 
 	@Override
@@ -99,10 +100,10 @@ public class AtendenteDAOImpl implements AtendenteDAO{
 
 	            while( rs.next() ) {
 	                Atendente a = new Atendente();
+					a.setCodFunc(rs.getInt("codFunc"));
 	                a.setNome(rs.getString("nome"));
-	                a.setUsername(rs.getString("userName"));
+	                a.setUsername(rs.getString("username"));
 	                a.setSenha(rs.getString("senha"));
-	                a.setCodFunc(rs.getInt("codFunc"));
 	                lista.add(a);
 	            }
 	          	con.close();

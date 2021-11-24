@@ -19,18 +19,18 @@ public class MedicoDAOImpl implements MedicoDAO{
 	public void adicionar(Medico medico) {
 		try {
 			Connection con = gDao.getConnection();
-			String sql = "INSERT INTO consulta(nome, telefone, crm, rua, num, cidade, complemento, nascimento)" + "VALUES(?, ?, ?, ?, ?, ?, ?,?)";
+			String sql = "INSERT INTO medico(nome, especialidade, telefone, crm, rua, num, cidade, complemento, nascimento)" + "VALUES(?, ?, ?, ?, ?, ?, ?,?,?)";
 			PreparedStatement st = con.prepareStatement(sql);
 			System.out.println(medico.getNome());
 			st.setString(1, medico.getNome());
-			//st.setLong(2, medico.getEspecialidade()); ARRUMAR
- 			st.setString(2, medico.getTelefone());
-			st.setString(3, medico.getCrm());
-			st.setString(4, medico.getRua());
-			st.setString(5, medico.getNum());
-			st.setString(6, medico.getCidade());
-			st.setString(7, medico.getComplemento());
-			st.setDate(8, java.sql.Date.valueOf(medico.getNascimento()));
+			st.setInt(2, medico.getEspecialidade());
+ 			st.setString(3, medico.getTelefone());
+			st.setString(4, medico.getCrm());
+			st.setString(5, medico.getRua());
+			st.setString(6, medico.getNum());
+			st.setString(7, medico.getCidade());
+			st.setString(8, medico.getComplemento());
+			st.setDate(9, java.sql.Date.valueOf(medico.getNascimento()));
 			st.executeUpdate();
 			con.close();
 		} catch (SQLException e) {
@@ -44,7 +44,7 @@ public class MedicoDAOImpl implements MedicoDAO{
 			String sql = "UPDATE medico SET nome = ?, especialidade = ?, telefone = ?, rua = ?, num = ?, cidade = ?, complemento = ?, nascimento = ? WHERE crm = ?";
 			PreparedStatement st = con.prepareStatement(sql);
 			st.setString(1, medico.getNome());
-			//st.setLong(2, medico.getEspecialidade()); ARRUMAR
+			st.setInt(2, medico.getEspecialidade());
  			st.setString(3, medico.getTelefone());
 			st.setString(4, medico.getRua());
 			st.setString(5, medico.getNum());
@@ -87,7 +87,7 @@ public class MedicoDAOImpl implements MedicoDAO{
                 Medico medico = new Medico();
                 medico.setNome(rs.getString("nome"));
                 medico.setCrm(rs.getString("crm"));
-                //medico.setEspecialidade(rs.getString("especialidade")); //ARRUMAR
+                medico.setEspecialidade(rs.getInt("especialidade"));
                 medico.setTelefone(rs.getString("telefone"));
                 medico.setRua(rs.getString("rua"));
                 medico.setNum(rs.getString("num"));

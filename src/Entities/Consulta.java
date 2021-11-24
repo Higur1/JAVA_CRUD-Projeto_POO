@@ -4,27 +4,27 @@ import java.time.LocalDate;
 
 public class Consulta {
 	
-	private Long id;
+	private int id;
 	private String descricao;
 	private String cpf;
 	private String crm;
-	private LocalDate dataConsult;
+	private LocalDate dataConsulta;
 	
 	
-	public Long getId() {
+	public int getId() {
 		return id;
 	}
 
-	public void setId(Long id) {
+	public void setId(int id) {
 		this.id = id;
 	}
 
 	public LocalDate getData() {
-		return dataConsult;
+		return dataConsulta;
 	}
 
 	public void setData(LocalDate data) {
-		this.dataConsult = data;
+		this.dataConsulta = data;
 	}
 	public String getDescricao() {
 		return descricao;

@@ -131,7 +131,7 @@ public class TelaAtendente {
 		txtUsername.setMaxWidth(150);
 		
 		TableView table = new TableView(); //Tabela
-		
+
 		TableColumn<Atendente, String> col1 = new TableColumn<>("Nome");
 		col1.setCellValueFactory(
 				new PropertyValueFactory<Atendente, String>("Nome")
@@ -149,7 +149,7 @@ public class TelaAtendente {
 		col4.setCellValueFactory(
 				new PropertyValueFactory<Atendente, String>("codFunc")
 				);
-		 TableColumn<Atendente, String> col5 = new TableColumn<>("Ações");
+		 TableColumn<Atendente, String> col5 = new TableColumn<>("Acoes");
 	        col5.setCellFactory( (tbcol) -> {
 	            Button btnRemover = new Button("Remover");
 	            TableCell<Atendente, String> tcell = new TableCell<Atendente, String>() {
@@ -173,12 +173,12 @@ public class TelaAtendente {
 	            }
 	        );
 		
-		table.getColumns().addAll(col1,col2, col3, col4, col5);
+		table.getColumns().addAll(col4,col1, col2, col3, col5);
 		table.setItems(control.getLista());
 		table.getSelectionModel().selectedItemProperty().addListener( (obs, old, novo) -> {
 			control.fromEntity((Atendente) novo);
 		});
-	
+		control.pesquisar();
 		btnPesquisar.setOnAction( (e) -> {
 			control.pesquisar();
 		});

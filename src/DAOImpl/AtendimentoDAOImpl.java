@@ -13,8 +13,8 @@ import Entities.Atendimento;
 import Entities.Consulta;
 
 public class AtendimentoDAOImpl implements AtendimentoDAO{
-	private static final String URIDB = "jdbc:mariadb://localhost:3306/clinica";
-	private static final String USER = "admin";
+	private static final String URIDB = "jdbc:mariadb://localhost:3306/dbclinicamedica";
+	private static final String USER = "root";
 	private static final String PASSWORD = "1234";
 
 	public AtendimentoDAOImpl() {
@@ -35,7 +35,7 @@ public class AtendimentoDAOImpl implements AtendimentoDAO{
 			String sql = "INSERT INTO atendimento(cpf, data, codFunc)" + "VALUES(?, ?, ?)";
 			PreparedStatement st = con.prepareStatement(sql);
 			st.setString(1, atendimento.getCpf());
-			st.setDate(2, java.sql.Date.valueOf(atendimento.getData()));	
+			st.setDate(2, java.sql.Date.valueOf(atendimento.getData()));
 			st.setInt(3, atendimento.getCodFunc());
 			st.executeUpdate();
 			con.close();
@@ -47,7 +47,7 @@ public class AtendimentoDAOImpl implements AtendimentoDAO{
 	public void atualizar(Atendimento atendimento) {
 		try {
 			Connection con = getConnection();
-			String sql = "UPDATE atendimento SET cpf = ?, data = ? where codFunc = ?" + "VALUES(?,?,?,?)";
+			String sql = "UPDATE atendimento SET cpf = ?, data = ? where codFunc = ?" + "VALUES(?,?,?)";
 			PreparedStatement st = con.prepareStatement(sql);
 			st.setString(1, atendimento.getCpf());
 			st.setDate(2, java.sql.Date.valueOf(atendimento.getData()));

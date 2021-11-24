@@ -7,18 +7,8 @@ public class Atendente {
 	private String username;
 	private String senha;
 
-	public int getId() {
-		return codFunc;
-	}
-	public void setId(int codFunc) {
-		this.codFunc = codFunc;
-	}
 	public int getCodFunc() {
 		return codFunc;
-	}
-
-	public void setCodFunc(int codFunc) {
-		this.codFunc = codFunc;
 	}
 
 	public String getUsername() {
@@ -39,5 +29,8 @@ public class Atendente {
 	}
 	public void setSenha(String senha) {
 		this.senha = senha;
+	}
+
+	public void setCodFunc(int codFunc) { this.codFunc = codFunc;
 	}
 }

@@ -58,7 +58,7 @@ public class TelaConsultaController{
 	public Consulta toEntity() {
 		Consulta consulta = new Consulta();
 		
-		consulta.setId(id.get());
+		consulta.setId((int) id.get());
 		consulta.setCpf(cpf.get());
 		consulta.setCrm(crm.get());
 		consulta.setData((LocalDate) dataConsult.get());

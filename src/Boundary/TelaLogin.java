@@ -1,6 +1,9 @@
 package Boundary;
 
 import Controller.TelaAtendenteController;
+import Controller.TelaLoginController;
+import DAO.AtendenteDAO;
+import DAOImpl.AtendenteDAOImpl;
 import Interface.Autenticavel;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -17,9 +20,10 @@ import java.sql.SQLException;
 
 
 public class TelaLogin {
-
+    TelaLoginController loginController = new TelaLoginController();
     public Scene logar() {
-   
+
+        AtendenteDAO aDao = new AtendenteDAOImpl();
         Label lblUserName = new Label("Username:");
         Label lblSenha = new Label("Senha:");
 
@@ -49,14 +53,20 @@ public class TelaLogin {
         vbox.setAlignment(Pos.CENTER);
 
         btnLogin.setOnAction((e) -> {
-           //TelaLoginController.VerificarAcesso();
             try {
-                Principal.changedScreen("Menu");
+                loginController.VerificarAcesso(txtUsername.getText(),txtSenha.getText());
             } catch (SQLException ex) {
                 ex.printStackTrace();
             } catch (ClassNotFoundException ex) {
                 ex.printStackTrace();
             }
+           /* try {
+                Principal.changedScreen("Menu");
+            } catch (SQLException ex) {
+                ex.printStackTrace();
+            } catch (ClassNotFoundException ex) {
+                ex.printStackTrace();
+            }*/
         });
         btnCadastro.setOnAction((e) -> {
             try {

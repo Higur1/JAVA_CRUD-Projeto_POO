@@ -21,11 +21,11 @@ public class ConsultaDAOImpl implements ConsultaDAO{
 	public void adicionar(Consulta consulta) {
 		try {
 			Connection con = gDao.getConnection();
-			String sql = "INSERT INTO consulta(cpf, crm, descricao, data)" + "VALUES(?, ?, ?,?)";
+			String sql = "INSERT INTO consulta(id, descricao, cpf, crm, dataConsulta)" + "VALUES(null,?, ?, ?,?)";
 			PreparedStatement st = con.prepareStatement(sql);
-			st.setString(1, consulta.getCpf());
-			st.setString(2, consulta.getCrm());
-			st.setString(3, consulta.getDescricao());
+			st.setString(1, consulta.getDescricao());
+			st.setString(2, consulta.getCpf());
+			st.setString(3, consulta.getCrm());
 			st.setDate(4, java.sql.Date.valueOf(consulta.getData()));
 			st.executeUpdate();
 			con.close();
@@ -74,11 +74,11 @@ public class ConsultaDAOImpl implements ConsultaDAO{
 	            while( rs.next() ) {
 	                Consulta cons = new Consulta();
 	                
-	            	cons.setId(rs.getLong("id"));
+	            	cons.setId(rs.getInt("id"));
+					cons.setDescricao(rs.getString("descricao"));
 	            	cons.setCpf(rs.getString("cpf"));
 	                cons.setCrm(rs.getString("crm"));
-	                cons.setData(rs.getDate("data").toLocalDate());
-	                cons.setDescricao(rs.getString("descricao"));
+	                cons.setData(rs.getDate("dataConsulta").toLocalDate());
 	                
 	            	lista.add(cons);
 	            }
