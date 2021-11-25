@@ -110,7 +110,7 @@ public class TelaMedico {
 		);
 		TableColumn<Medico, String> col2 = new TableColumn<>("Especialidade");
 		col2.setCellValueFactory(
-			new PropertyValueFactory<Medico, String>("cbo_especialidade")
+			new PropertyValueFactory<Medico, String>("getCboEspecialidade()")
 		);
 		TableColumn<Medico, String> col3 = new TableColumn<>("CRM");
 		col3.setCellValueFactory(
@@ -164,7 +164,7 @@ public class TelaMedico {
 	            return tcell;
 	            }
 	        );
-				
+
 		table.getColumns().addAll(col1,col2,col3,col4,col5, col6, col7, col8, col9, col10);
 		table.setItems(control.getLista());
 		table.getSelectionModel().selectedItemProperty().addListener( (obs, old, novo) -> {
@@ -176,7 +176,7 @@ public class TelaMedico {
 		});
 		
 		btnEditar.setOnAction( (e) -> {
-			control.atualizar();
+			control.atualizar(cbxNomeEspecialidade.getValue());
 		});
 		
 		btnPesquisar.setOnAction( (e) -> {

@@ -19,7 +19,6 @@ import javafx.collections.ObservableList;
 public class TelaMedicoController {
 	
 	public StringProperty nome = new SimpleStringProperty("");
-	public StringProperty nome_Especialidade = new SimpleStringProperty("");
 	public StringProperty telefone = new SimpleStringProperty("");
 	public StringProperty crm = new SimpleStringProperty("");
 	public StringProperty rua = new SimpleStringProperty("");
@@ -50,15 +49,15 @@ public class TelaMedicoController {
 		medicos.add(medico);
 	}
 	
-	public void atualizar() {
-		/*Medico  medico = toEntity();
+	public void atualizar(String valorComboboxNomeEspecialidade) {
+		Medico  medico = toEntity(valorComboboxNomeEspecialidade);
 		if(medico.getCrm() == "") {
 			medicoDAO.adicionar(medico);
 			medicoDAO.pesquisarTodos();
 		}else {
 			medicoDAO.atualizar(crm.get(), medico);
 			medicoDAO.pesquisarTodos();
-		}*/
+		}
 	}
 	public void pesquisar() {
 		medicos.clear();
@@ -67,9 +66,11 @@ public class TelaMedicoController {
 		if(!medicos.isEmpty()) {
 			fromEntity(medicos.get(0));
 		}
+
 	}
-	public void salvar() {
-/*		Medico medico = toEntity();
+	public void salvar(String valorComboboxNomeEspecialidade) {
+		medicos.clear();
+		Medico medico = toEntity(valorComboboxNomeEspecialidade);
 		if(medico.getCrm() == "") {
 			medicoDAO.adicionar(medico);
 		}else {
@@ -77,9 +78,11 @@ public class TelaMedicoController {
 		}
 		medicoDAO.pesquisarTodos();
 	}
+
 	public void excluir(String crm) {
+		medicos.clear();
 		medicoDAO.excluir(crm);
-		medicoDAO.pesquisarTodos();*/
+		medicos.addAll(medicoDAO.pesquisarTodos());
 	}
 	
 	public Medico toEntity(String valorComboboxNomeEspecialidade) {
@@ -93,7 +96,6 @@ public class TelaMedicoController {
 		m.setCidade(cidade.get());
 		m.setComplemento(complemento.get());
 		m.setNascimento((LocalDate) nascimento.get());
-		System.out.println(especialidadeDAO.findEspecialidadeByNome(valorComboboxNomeEspecialidade).getCbo());
 		m.setCboEspecialidade(especialidadeDAO.findEspecialidadeByNome(valorComboboxNomeEspecialidade).getCbo());
 
 		return m;
@@ -108,7 +110,7 @@ public class TelaMedicoController {
 		cidade.set(medico.getCidade());
 		complemento.set(medico.getComplemento());
 		nascimento.set(medico.getNascimento());
-		nome_Especialidade.set(especialidadeDAO.findEspecialidadeByCbo(medico.getCboEspecialidade()).getNome());
+		//nome_Especialidade.set(especialidadeDAO.findEspecialidadeByCbo(medico.getCboEspecialidade()).getNome());
 	}
 	
 	public ObservableList<Medico> getLista(){
@@ -119,8 +121,5 @@ public class TelaMedicoController {
 			List<String> nomeEspecialidades = new ArrayList<>();
 			especialidadeDAO.pesquisarTodos().forEach(e -> nomeEspecialidades.add(e.getNome()));
 			return FXCollections.observableList(nomeEspecialidades);
-	}
-
-	public void excluir(String crm) {
 	}
 }
