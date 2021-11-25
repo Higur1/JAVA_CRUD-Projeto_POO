@@ -9,4 +9,5 @@ public interface EspecialidadeDAO {
 	void atualizar(Especialidade especialidade);
 	void excluir(String cbo);
 	List<Especialidade> pesquisarTodos();
+	Especialidade findEspecialidadeByNome(String nome);
 }

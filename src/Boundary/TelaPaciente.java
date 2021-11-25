@@ -183,4 +183,8 @@ public class TelaPaciente {
 		 
 		return vb;
 	}
+
+	public void findObservableListEspecialidade(){
+
+	}
 }

@@ -17,5 +17,5 @@ public class Especialidade {
 	public void setCbo(String cbo) {
 		this.cbo = cbo;
 	}
-	
+
 }

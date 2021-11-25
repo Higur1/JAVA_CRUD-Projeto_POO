@@ -82,4 +82,23 @@ public class EspecialidadeDAOImpl implements EspecialidadeDAO{
 	        }
 	        return lista;
 	}
+
+	@Override
+	public Especialidade findEspecialidadeByNome(String nome) {
+		Especialidade especialidade = new Especialidade();
+		try{
+			Connection con = gDao.getConnection();
+			String sql = "SELECT * FROM especialidade WHERE nome = ?";
+			PreparedStatement st = con.prepareStatement(sql);
+			ResultSet rs = st.executeQuery();
+			especialidade.setCbo(rs.getString("cbo"));
+			especialidade.setNome(rs.getString("nome"));
+			rs.close();
+			st.close();
+			con.close();
+		}catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return especialidade;
+	}
 }

@@ -58,18 +58,15 @@ public class TelaMedico {
 
 		ComboBox<String> cbxNomeEspecialidade;
 		cbxNomeEspecialidade = new ComboBox<>();
-		cbxNomeEspecialidade.getItems().addAll(
-				"Good Will Hunting",
-				"St. Vincent",
-				"Blackhat"
-		);
+		cbxNomeEspecialidade.setItems(control.getObservableListOfNomeEspecialidades());
+		cbxNomeEspecialidade.setPromptText("Especialização");
 		
 		painel.setAlignment(Pos.TOP_LEFT);
 		
 		painel.add(lblNome, 0, 0);
 		painel.add(txtNome, 1, 0);
 		painel.add(lblEspec, 0, 1);
-		painel.add(txtEspec, 1, 1);
+		painel.add(cbxNomeEspecialidade, 1, 1);
 		painel.add(lblTelefone, 0, 2);
 		painel.add(txtTel, 1, 2);
 		
@@ -88,7 +85,6 @@ public class TelaMedico {
 		
 		Bindings.bindBidirectional(txtNome.textProperty(), control.nome);
 		Bindings.bindBidirectional(txtCrm.textProperty(), control.crm);
-		Bindings.bindBidirectional(txtEspec.textProperty(), control.cbo_Especialidade);
 		Bindings.bindBidirectional(txtTel.textProperty(), control.telefone);
 		Bindings.bindBidirectional(txtNasc.textProperty(), control.nascimento, new LocalDateStringConverter());
 		Bindings.bindBidirectional(txtRua.textProperty(), control.rua);
@@ -174,7 +170,7 @@ public class TelaMedico {
 		});
 
 		btnAdicionar.setOnAction( (e) -> {
-			control.adicionar();
+			control.adicionar(cbxNomeEspecialidade.getValue());
 		});
 		
 		btnEditar.setOnAction( (e) -> {
@@ -188,5 +184,5 @@ public class TelaMedico {
 		VBox painelP = new VBox(painel, hb, table);
 		
 		return painelP;
-	}	
+	}
 }
