@@ -1,12 +1,14 @@
 package Boundary;
 
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 
 import Controller.TelaPacienteController;
 import Entities.Medico;
 import Entities.Paciente;
 import javafx.beans.binding.Bindings;
 //import Entities.Medico;
+import javafx.beans.property.ReadOnlyStringWrapper;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
@@ -95,12 +97,15 @@ public class TelaPaciente {
 		painel.setHgap(10);
 		
 		painel.setPadding(new Insets(10,10,10,10));
-	
+
 		TableView <Paciente> table = new TableView<>();
-		
+
+		//para deixar o retorno do do atributo nascimento do tipo DATE do banco no formato "dd//MM/yyyy"
+		DateTimeFormatter fmt = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+
 		TableColumn<Paciente, String> col1 = new TableColumn<>("Nome");
 		col1.setCellValueFactory(
-				new PropertyValueFactory<Paciente, String>("Nome")
+				new PropertyValueFactory<Paciente, String>("nome")
 				);
 		TableColumn<Paciente, String> col2 = new TableColumn<>("CPF");
 		col2.setCellValueFactory(
@@ -114,10 +119,12 @@ public class TelaPaciente {
 		col4.setCellValueFactory(
 				new PropertyValueFactory<Paciente, String>("sexo")
 				);
-		TableColumn<Paciente , LocalDate> col5 = new TableColumn<>("Nascimento");
-		col5.setCellValueFactory(
-				new PropertyValueFactory<Paciente, LocalDate>("nascimento")
-				);
+		TableColumn<Paciente , String> col5 = new TableColumn<>("Nascimento");
+		col5.setCellValueFactory( (item) ->{
+						LocalDate d = item.getValue().getNascm();
+						return new ReadOnlyStringWrapper(d.format(fmt));
+			}
+		);
 		TableColumn<Paciente, String> col6 = new TableColumn<>("Rua");
 		col6.setCellValueFactory(
 			new PropertyValueFactory<Paciente, String>("rua")

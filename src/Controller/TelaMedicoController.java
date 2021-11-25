@@ -15,6 +15,7 @@ import javafx.collections.ObservableList;
 public class TelaMedicoController {
 	
 	public StringProperty nome = new SimpleStringProperty("");
+	public StringProperty cbo_Especialidade = new SimpleStringProperty("");
 	public StringProperty telefone = new SimpleStringProperty("");
 	public StringProperty crm = new SimpleStringProperty("");
 	public StringProperty rua = new SimpleStringProperty("");
@@ -78,6 +79,7 @@ public class TelaMedicoController {
 		m.setCidade(cidade.get());
 		m.setComplemento(complemento.get());
 		m.setNascimento((LocalDate) nascimento.get());
+		m.setCboEspecialidade(cbo_Especialidade.get());
 		
 		return m;
 	}
@@ -91,6 +93,7 @@ public class TelaMedicoController {
 		cidade.set(medico.getCidade());
 		complemento.set(medico.getComplemento());
 		nascimento.set(medico.getNascimento());
+		cbo_Especialidade.set(medico.getCboEspecialidade());
 	}
 	
 	public ObservableList<Medico> getLista(){

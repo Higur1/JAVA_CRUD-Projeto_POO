@@ -4,7 +4,7 @@ import java.time.LocalDate;
 
 public class Medico {
 	private String nome;
-	private int especialidade;
+	private String cbo_especialidade;
 	private String telefone;
 	private String crm;
 	private String rua;
@@ -19,11 +19,11 @@ public class Medico {
 	public void setNome(String nome) {
 		this.nome = nome;
 	}
-	public int getEspecialidade() {
-		return especialidade;
+	public String getCboEspecialidade() {
+		return cbo_especialidade;
 	}
-	public void setEspecialidade(int especialidade) {
-		this.especialidade = especialidade;
+	public void setCboEspecialidade(String cbo_especialidade) {
+		this.cbo_especialidade = cbo_especialidade;
 	}
 	public String getTelefone() {
 		return telefone;

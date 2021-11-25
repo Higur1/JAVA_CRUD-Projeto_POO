@@ -8,12 +8,7 @@ import javafx.beans.binding.Bindings;
 //import Entities.Medico;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.TableCell;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
@@ -61,6 +56,13 @@ public class TelaMedico {
 		TextField txtComp = new TextField();
 		TextField txtNasc = new TextField();
 
+		ComboBox<String> cbxNomeEspecialidade;
+		cbxNomeEspecialidade = new ComboBox<>();
+		cbxNomeEspecialidade.getItems().addAll(
+				"Good Will Hunting",
+				"St. Vincent",
+				"Blackhat"
+		);
 		
 		painel.setAlignment(Pos.TOP_LEFT);
 		
@@ -86,7 +88,7 @@ public class TelaMedico {
 		
 		Bindings.bindBidirectional(txtNome.textProperty(), control.nome);
 		Bindings.bindBidirectional(txtCrm.textProperty(), control.crm);
-		//Bindings.bindBidirectional(txtEspec.textProperty(), control.especialidade);
+		Bindings.bindBidirectional(txtEspec.textProperty(), control.cbo_Especialidade);
 		Bindings.bindBidirectional(txtTel.textProperty(), control.telefone);
 		Bindings.bindBidirectional(txtNasc.textProperty(), control.nascimento, new LocalDateStringConverter());
 		Bindings.bindBidirectional(txtRua.textProperty(), control.rua);

@@ -23,7 +23,7 @@ public class MedicoDAOImpl implements MedicoDAO{
 			PreparedStatement st = con.prepareStatement(sql);
 			System.out.println(medico.getNome());
 			st.setString(1, medico.getNome());
-			st.setInt(2, medico.getEspecialidade());
+			st.setString(2, medico.getCboEspecialidade());
  			st.setString(3, medico.getTelefone());
 			st.setString(4, medico.getCrm());
 			st.setString(5, medico.getRua());
@@ -44,7 +44,7 @@ public class MedicoDAOImpl implements MedicoDAO{
 			String sql = "UPDATE medico SET nome = ?, especialidade = ?, telefone = ?, rua = ?, num = ?, cidade = ?, complemento = ?, nascimento = ? WHERE crm = ?";
 			PreparedStatement st = con.prepareStatement(sql);
 			st.setString(1, medico.getNome());
-			st.setInt(2, medico.getEspecialidade());
+			st.setString(2, medico.getCboEspecialidade());
  			st.setString(3, medico.getTelefone());
 			st.setString(4, medico.getRua());
 			st.setString(5, medico.getNum());
@@ -87,13 +87,13 @@ public class MedicoDAOImpl implements MedicoDAO{
                 Medico medico = new Medico();
                 medico.setNome(rs.getString("nome"));
                 medico.setCrm(rs.getString("crm"));
-                medico.setEspecialidade(rs.getInt("especialidade"));
+                medico.setCboEspecialidade(rs.getString("especialidade"));
                 medico.setTelefone(rs.getString("telefone"));
                 medico.setRua(rs.getString("rua"));
                 medico.setNum(rs.getString("num"));
                 medico.setCidade(rs.getString("cidade"));
                 medico.setComplemento(rs.getString("complemento"));
-                medico.setNascimento(rs.getDate("data").toLocalDate());
+                medico.setNascimento(rs.getDate("nascimento").toLocalDate());
             	lista.add(medico);
             }
            con.close();

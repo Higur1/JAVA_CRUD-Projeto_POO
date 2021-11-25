@@ -14,7 +14,6 @@ CREATE TABLE Atendente (
     foreign key (codFunc) references Codigo(codGerado)
     )
 
-
 CREATE TABLE Paciente (
     nome VARCHAR(100) NOT NULL,
     cpf VARCHAR(11) NOT NULL PRIMARY KEY,
@@ -67,4 +66,4 @@ CREATE TABLE Consulta (
 
 INSERT INTO Codigo VALUES (1)
 
-atendenteINSERT INTO Atendente VALUES (1,'adm','root','1234')
+INSERT INTO Atendente VALUES (1,'adm','root','1234')

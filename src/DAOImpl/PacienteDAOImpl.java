@@ -20,17 +20,17 @@ public class PacienteDAOImpl implements PacienteDAO {
 	public void adicionar(Paciente paciente) {
 		try {
 			Connection con = gDao.getConnection();
-			String sql = "INSERT INTO consulta(nome, cpf, sexo, nascimento,telefone, rua, num, cidade, complemento)" + "VALUES(?, ?, ?, ?, ?, ?, ?, ?,?)";
+			String sql = "INSERT INTO paciente(nome, cpf, sexo, nascimento,telefone, rua, num, cidade, complemento)" + "VALUES(?,?,?,?,?,?,?,?,?)";
 			PreparedStatement st = con.prepareStatement(sql);
 			st.setString(1, paciente.getNome());
 			st.setString(2, paciente.getCpf());
 			st.setString(3, paciente.getSexo());
+			st.setDate(4, java.sql.Date.valueOf(paciente.getNascm()));
  			st.setString(5, paciente.getTelefone());
 			st.setString(6, paciente.getRua());
 			st.setString(7, paciente.getNum());
 			st.setString(8, paciente.getCidade());
 			st.setString(9, paciente.getComplemento());
-			st.setDate(4, java.sql.Date.valueOf(paciente.getNascm()));
 			st.executeUpdate();
 			con.close();
 		} catch (SQLException e) {
@@ -91,7 +91,8 @@ public class PacienteDAOImpl implements PacienteDAO {
                 paciente.setNum(rs.getString("num"));
                 paciente.setCidade(rs.getString("cidade"));
                 paciente.setComplemento(rs.getString("complemento"));
-                paciente.setNascm(rs.getDate("data").toLocalDate());
+                //paciente.setNascm(rs.getDate("data").toLocalDate());
+				paciente.setNascm(rs.getDate("nascimento").toLocalDate());
             	lista.add(paciente);
             }
            con.close();
