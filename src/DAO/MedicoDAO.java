@@ -9,4 +9,5 @@ public interface MedicoDAO {
 	void atualizar(String crm, Medico medico);
 	void excluir(String crm);
 	List<Medico> pesquisarTodos();
+	Medico pesquisarUm(String cbo);
 }

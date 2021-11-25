@@ -9,6 +9,7 @@ import java.util.List;
 
 import DAO.GenericDAO;
 import DAO.MedicoDAO;
+import Entities.Especialidade;
 import Entities.Medico;
 
 public class MedicoDAOImpl implements MedicoDAO{
@@ -32,6 +33,7 @@ public class MedicoDAOImpl implements MedicoDAO{
 			st.setString(8, medico.getComplemento());
 			st.setDate(9, java.sql.Date.valueOf(medico.getNascimento()));
 			st.executeUpdate();
+			st.close();
 			con.close();
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -96,11 +98,41 @@ public class MedicoDAOImpl implements MedicoDAO{
                 medico.setNascimento(rs.getDate("nascimento").toLocalDate());
             	lista.add(medico);
             }
+			rs.close();
+			st.close();
            con.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }
         return lista;
+	}
+
+	@Override
+	public Medico pesquisarUm(String crm) {
+		Medico medico = new Medico();
+		try{
+			Connection con = gDao.getConnection();
+			String sql = "SELECT * FROM medico WHERE crm LIKE ?";//'?'";
+			PreparedStatement st = con.prepareStatement(sql);
+			st.setString(1, crm);
+			ResultSet rs = st.executeQuery();
+			rs.next();
+			medico.setCrm(crm);
+			medico.setNome(rs.getString("nome"));
+			medico.setCboEspecialidade(rs.getString("especialidade"));
+			medico.setTelefone(rs.getString("telefone"));
+			medico.setRua(rs.getString("rua"));
+			medico.setNum(rs.getString("num"));
+			medico.setCidade(rs.getString("cidade"));
+			medico.setComplemento(rs.getString("complemento"));
+			medico.setNascimento(rs.getDate("nascimento").toLocalDate());
+			rs.close();
+			st.close();
+			con.close();
+		}catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return medico;
 	}
 
 }

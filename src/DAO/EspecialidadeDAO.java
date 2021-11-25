@@ -10,4 +10,5 @@ public interface EspecialidadeDAO {
 	void excluir(String cbo);
 	List<Especialidade> pesquisarTodos();
 	Especialidade findEspecialidadeByNome(String nome);
+	Especialidade findEspecialidadeByCbo(String cbo);
 }

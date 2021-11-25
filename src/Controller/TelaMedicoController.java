@@ -43,7 +43,8 @@ public class TelaMedicoController {
 	public void adicionar(String valorComboboxNomeEspecialidade) {
 		Medico medico = toEntity(valorComboboxNomeEspecialidade);
 		medicoDAO.adicionar(medico);
-		medicoDAO.pesquisarTodos();
+		//medicos.addAll(medicoDAO.pesquisarTodos());
+		medicos.add(medicoDAO.pesquisarUm(medico.getCrm()));
 	}
 	
 	public void atualizar() {
@@ -89,8 +90,9 @@ public class TelaMedicoController {
 		m.setCidade(cidade.get());
 		m.setComplemento(complemento.get());
 		m.setNascimento((LocalDate) nascimento.get());
+		System.out.println(especialidadeDAO.findEspecialidadeByNome(valorComboboxNomeEspecialidade).getCbo());
 		m.setCboEspecialidade(especialidadeDAO.findEspecialidadeByNome(valorComboboxNomeEspecialidade).getCbo());
-		
+
 		return m;
 	}
 	
@@ -103,6 +105,8 @@ public class TelaMedicoController {
 		cidade.set(medico.getCidade());
 		complemento.set(medico.getComplemento());
 		nascimento.set(medico.getNascimento());
+		nome_Especialidade.set(especialidadeDAO.findEspecialidadeByCbo(medico.getCboEspecialidade()).getNome());
+
 	}
 	
 	public ObservableList<Medico> getLista(){

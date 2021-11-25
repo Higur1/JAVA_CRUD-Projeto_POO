@@ -88,9 +88,36 @@ public class EspecialidadeDAOImpl implements EspecialidadeDAO{
 		Especialidade especialidade = new Especialidade();
 		try{
 			Connection con = gDao.getConnection();
-			String sql = "SELECT * FROM especialidade WHERE nome = ?";
+			String sql = "SELECT * FROM especialidade WHERE nome LIKE ?";
 			PreparedStatement st = con.prepareStatement(sql);
+			st.setString(1, nome);
 			ResultSet rs = st.executeQuery();
+			rs.next();
+			//System.out.println(rs.getString("cbo"));
+			System.out.println("cbo sendo pego :" + rs.getString("cbo"));
+			System.out.println("nome sendo pego :" + rs.getString("nome"));
+			especialidade.setCbo(rs.getString("cbo"));
+			especialidade.setNome(rs.getString("nome"));
+			rs.close();
+			st.close();
+			con.close();
+		}catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return especialidade;
+	}
+
+	@Override
+	public Especialidade findEspecialidadeByCbo(String cbo) {
+		Especialidade especialidade = new Especialidade();
+		try{
+			Connection con = gDao.getConnection();
+			//String sql = "SELECT * FROM especialidade WHERE cbo LIKE " + cbo;//'?'";
+			String sql = "SELECT * FROM especialidade WHERE cbo LIKE ?";//'?'";
+			PreparedStatement st = con.prepareStatement(sql);
+			st.setString(1, cbo);
+			ResultSet rs = st.executeQuery();
+			rs.next();
 			especialidade.setCbo(rs.getString("cbo"));
 			especialidade.setNome(rs.getString("nome"));
 			rs.close();
