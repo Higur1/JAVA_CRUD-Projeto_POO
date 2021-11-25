@@ -44,11 +44,13 @@ public class TelaMedicoController {
 		Medico medico = toEntity(valorComboboxNomeEspecialidade);
 		medicoDAO.adicionar(medico);
 		//medicos.addAll(medicoDAO.pesquisarTodos());
-		medicos.add(medicoDAO.pesquisarUm(medico.getCrm()));
+		System.out.println("valor cbo: " + medico.getCboEspecialidade());
+		medico = medicoDAO.pesquisarUm(medico.getCrm());
+		medicos.add(medico);
 	}
 	
 	public void atualizar() {
-	/*	Medico  medico = toEntity();
+		/*Medico  medico = toEntity();
 		if(medico.getCrm() == "") {
 			medicoDAO.adicionar(medico);
 			medicoDAO.pesquisarTodos();

@@ -61,13 +61,6 @@ public class TelaLogin {
             } catch (ClassNotFoundException ex) {
                 ex.printStackTrace();
             }
-           /* try {
-                Principal.changedScreen("Menu");
-            } catch (SQLException ex) {
-                ex.printStackTrace();
-            } catch (ClassNotFoundException ex) {
-                ex.printStackTrace();
-            }*/
         });
         btnCadastro.setOnAction((e) -> {
             try {

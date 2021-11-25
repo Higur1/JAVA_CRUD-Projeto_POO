@@ -3,9 +3,11 @@ package Boundary;
 import java.time.LocalDate;
 
 import Controller.TelaMedicoController;
+import Entities.Especialidade;
 import Entities.Medico;
 import javafx.beans.binding.Bindings;
 //import Entities.Medico;
+import javafx.beans.property.StringProperty;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.*;
@@ -91,7 +93,8 @@ public class TelaMedico {
 		Bindings.bindBidirectional(txtNum.textProperty(), control.num);
 		Bindings.bindBidirectional(txtCidade.textProperty(), control.cidade);
 		Bindings.bindBidirectional(txtComp.textProperty(), control.complemento);
-		
+		//Bindings.bindBidirectional(cbxNomeEspecialidade.getValue(), (StringProperty) control.nome_Especialidade);
+
 		painel.setVgap(10);
 		painel.setHgap(10);
 		
@@ -101,14 +104,13 @@ public class TelaMedico {
 		
 		TableView <Medico> table = new TableView<>();
 
-
 		TableColumn<Medico, String> col1 = new TableColumn<>("Nome");
 		col1.setCellValueFactory(
 			new PropertyValueFactory<Medico, String>("nome")
 		);
 		TableColumn<Medico, String> col2 = new TableColumn<>("Especialidade");
 		col2.setCellValueFactory(
-			new PropertyValueFactory<Medico, String>("Especialidade")
+			new PropertyValueFactory<Medico, String>("cbo_especialidade")
 		);
 		TableColumn<Medico, String> col3 = new TableColumn<>("CRM");
 		col3.setCellValueFactory(
