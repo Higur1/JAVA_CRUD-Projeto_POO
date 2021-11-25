@@ -46,6 +46,7 @@ public class TelaMedicoController {
 		//medicos.addAll(medicoDAO.pesquisarTodos());
 		System.out.println("valor cbo: " + medico.getCboEspecialidade());
 		medico = medicoDAO.pesquisarUm(medico.getCrm());
+		medico.setCboEspecialidade("1");
 		medicos.add(medico);
 	}
 	
@@ -108,7 +109,6 @@ public class TelaMedicoController {
 		complemento.set(medico.getComplemento());
 		nascimento.set(medico.getNascimento());
 		nome_Especialidade.set(especialidadeDAO.findEspecialidadeByCbo(medico.getCboEspecialidade()).getNome());
-
 	}
 	
 	public ObservableList<Medico> getLista(){

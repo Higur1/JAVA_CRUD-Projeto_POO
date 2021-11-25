@@ -33,14 +33,16 @@ public class TelaPacienteController{
 		pacienteDAO = new PacienteDAOImpl();
 	}
 	public void adicionar() {
+		pacientes.clear();
 		Paciente paciente = toEntity();
 		pacienteDAO.adicionar(paciente);
-		pacienteDAO.pesquisarTodos();
+		pacientes.addAll(pacienteDAO.pesquisarTodos());
 	}
 	public void atualizar() {
+		pacientes.clear();
 		Paciente paciente = toEntity();
 		pacienteDAO.atualizar(cpf.get(), paciente);
-		pacienteDAO.pesquisarTodos();
+		pacientes.addAll(pacienteDAO.pesquisarTodos());
 	}
 	public void pesquisar() {
 		pacientes.clear();
@@ -51,8 +53,9 @@ public class TelaPacienteController{
 		}
 	}
 	public void excluir(String cpf) {
+		pacientes.clear();
 		pacienteDAO.excluir(cpf);
-		pacienteDAO.pesquisarTodos();
+		pacientes.addAll(pacienteDAO.pesquisarTodos());
 	}
 	public Paciente toEntity() {
 		Paciente paciente = new Paciente();

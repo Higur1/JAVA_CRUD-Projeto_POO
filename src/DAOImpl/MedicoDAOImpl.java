@@ -112,7 +112,7 @@ public class MedicoDAOImpl implements MedicoDAO{
 		Medico medico = new Medico();
 		try{
 			Connection con = gDao.getConnection();
-			String sql = "SELECT * FROM medico WHERE crm LIKE ?";//'?'";
+			String sql = "SELECT * FROM medico WHERE crm LIKE ?";
 			PreparedStatement st = con.prepareStatement(sql);
 			st.setString(1, crm);
 			ResultSet rs = st.executeQuery();

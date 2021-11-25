@@ -41,7 +41,7 @@ public class PacienteDAOImpl implements PacienteDAO {
 	public void atualizar(String cpf, Paciente paciente) {
 		try {
 			Connection con = gDao.getConnection();
-			String sql = "UPDATE paciente SET nome = ?, sexo = ?, Telefone = ?, rua = ?, num = ?, cidade = ?, complemento = ?, nascimento = ?, cpf = ?)";
+			String sql = "UPDATE paciente SET nome = ?, sexo = ?, telefone = ?, rua = ?, num = ?, cidade = ?, complemento = ?, nascimento = ? WHERE cpf like ?";
 			PreparedStatement st = con.prepareStatement(sql);
 			st.setString(1, paciente.getNome());
 			st.setString(2, paciente.getSexo()); 
@@ -53,6 +53,7 @@ public class PacienteDAOImpl implements PacienteDAO {
 			st.setDate(8, java.sql.Date.valueOf(paciente.getNascm()));
 			st.setString(9, cpf);
 			st.executeUpdate();
+			st.close();
 			con.close();
 		} catch (SQLException e) {
 			e.printStackTrace();
